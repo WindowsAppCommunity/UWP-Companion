@@ -36,6 +36,6 @@
         ]
     },
     "background": {
-        "page": "background-script/background/background.html"
+        "page": "background-script/index.html"
     }
 }

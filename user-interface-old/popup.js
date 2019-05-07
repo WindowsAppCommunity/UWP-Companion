@@ -1,7 +1,7 @@
-import libs, { checkLib } from '../libs.js';
-import { setSettings, getSettings, settings } from '../helpers/settings.js';
-import { AppsEnum } from '../helpers/appAssociations.js';
-import { GetPlatformNameFromUrl } from '../helpers/misc.js';
+import libs, { checkLib } from '../core/libs.js';
+import { setSettings, getSettings, settings } from '../core/helpers/settings.js';
+import { AppsEnum } from '../core/helpers/appAssociations.js';
+import { GetPlatformNameFromUrl } from '../core/helpers/misc.js';
 
 
 function openCurrentTab() {

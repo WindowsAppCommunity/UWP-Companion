@@ -1,7 +1,7 @@
-import libs, { checkLib } from '../libs.js';
-import { setSettings, getSettings, settings } from '../helpers/settings.js';
-import { debounce } from '../helpers/misc.js';
-import { YouTube } from '../lib/youtube/master.js';
+import libs, { checkLib } from '../core/libs.js';
+import { setSettings, getSettings, settings } from '../core/helpers/settings.js';
+import { debounce } from '../core/helpers/misc.js';
+import { YouTube } from '../core/lib/youtube/master.js';
 
 if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
     // Replacing chrome.tabs with browser.tabs for Firefox / other browsers that may need it
