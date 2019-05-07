@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+* {
+    background-color: var(--primary-bg-colour);
+}
+
+.logo {
+    margin: 10px;
+}
+
+body {
+    overflow-x: hidden;
+    margin-bottom: 15px;
+    width: 215px;
+}
+
+#options {
+    color: var(--primary-text-colour);
+    font-size: 14px;
+
+}
+
+.button {
+    color: var(--primary-text-colour);
+    font-size: 16px;
+    user-select: none;
+}
+
+.share {
+    margin-bottom: -12px;
+}
+
+.share:hover,
+.button:hover,
+label:hover {
+    cursor: pointer;
+}
+
+option,
+select {
+    color: var(--primary-text-colour);
+}
+
+#controls {
+    font-family: 'Noto Sans';
+    display: none;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+select {
+    width: 90vw;
+    height: 30px;
+    margin: 5px;
+}
+
+#controls div {
+    display: inline-block;
+}
+
+/* For some reason the first label has a right offset, so we need to "fix" it */
+#options label:first-child {
+    margin-left: 15px;
+}
+
+#open img {
+    height: 35px;
+    width: 35px;
+}
+
+input {
+    padding-bottom: 16px;
+}
+
+#onoff+span {
+    text-align: center;
+}
+
+:root {
+    --primary-bg-colour: black;
+    --primary-text-colour: white;
+}
