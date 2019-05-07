@@ -21,7 +21,7 @@
         "default_icon": {
             "48": "assets/logos/BrowserAction.png"
         },
-        "default_popup": "popup/popup.html",
+        "default_popup": "user-interface/index.html",
         "theme_icons": [
             {
                 "light": "assets/logos/Square48x48Logo.png",
@@ -36,6 +36,6 @@
         ]
     },
     "background": {
-        "page": "background/background.html"
+        "page": "background-script/background/background.html"
     }
 }
