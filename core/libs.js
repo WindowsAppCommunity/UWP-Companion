@@ -10,9 +10,8 @@ import { AppsEnum } from './helpers/appAssociations.js';
 import mytube from './lib/youtube/mytube.js';
 import { GetPlatformNameFromUrl } from './helpers/misc.js';
 
-export function checkLib(uri : string, tabId : string, bypass : boolean) {
-    let platformName: string | undefined;
-
+export function checkLib(uri, tabId, bypass) {
+    let platformName;
     for (const name of Object.keys(platforms)) {
         if ((settings[name].isEnabled || bypass) && platforms[name].baseUrlMatch(uri)) {
             platformName = name;
@@ -21,12 +20,12 @@ export function checkLib(uri : string, tabId : string, bypass : boolean) {
     if (platformName == undefined) return;
 
     // perform URL parsing for that platform's preffered client
-    let protocol : string;
+    let protocol;
     Object.entries(platforms[platformName].clients).forEach(([clientName, client]) => {
         if (clientName == settings[platformName].prefferedApp) {
             protocol = client.parseUrl(uri, tabId);
             setTimeout(() => {
-                if (settings[platformName].closeOnSwitch && platformName[platformName].shouldCloseOnSwitch(uri) && protocol) {
+                if (settings[platformName].closeOnSwitch && platforms[platformName].shouldCloseOnSwitch(uri) && protocol) {
                     chrome.tabs.remove(tabId);
                 }
             }, 500);

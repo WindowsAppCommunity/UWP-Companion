@@ -1,7 +1,9 @@
 import myTube from './mytube.js';
+import perfectTube from './perfecttube.js';
 
 let clients = {
-    myTube: myTube
+    myTube: myTube,
+    perfectTube: perfectTube
 };
 
 function shouldCloseOnSwitch(url) {
@@ -40,6 +42,7 @@ function pauseVideo(tabId) {
 }
 
 export const YouTube = {
+    name: "YouTube",
     baseUrlMatch: isYoutube,
     shouldCloseOnSwitch: shouldCloseOnSwitch,
     pauseVideo: pauseVideo,

@@ -46,6 +46,7 @@ function getProtocolFromUrl(url, tabId) {
 }
 
 export default {
+    name: "myTube",
     parseUrl: getProtocolFromUrl,
     config: {
         color: "#303030"

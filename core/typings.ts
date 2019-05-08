@@ -1,8 +1,9 @@
 /* Typings for core js files */
 
 export interface IClient {
-    ParseUrl: Function;
+    parseUrl: Function;
     config: IClientConfig;
+    name: string;
 }
 
 export interface IClientConfig {
@@ -10,8 +11,27 @@ export interface IClientConfig {
 }
 
 export interface IPlatform {
+    name: string,
     baseUrlMatch: Function,
     shouldCloseOnSwitch: Function,
-    clients?: IClient[];
+    clients: {
+        [key: string]: IClient;
+    }
+    // Additional general helper methods for the platform
     [key: string]: any;
+}
+
+export interface IPlatforms {
+    [key: string]: IPlatform
+}
+export interface ILib {
+    platforms: IPlatforms;
+}
+
+export interface ISettings {
+    [key: string]: {
+        prefferedApp: string,
+        isEnabled: boolean,
+        closeOnSwitch: boolean        
+    }
 }

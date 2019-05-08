@@ -7,10 +7,16 @@
     "downlevelIteration": true,
     "strict": true,
     "allowJs": true,
+    "types": [
+      "chrome"
+    ],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "jsx": "react"
   },
-  "include": ["src/index.tsx", "typings/**/*.d.ts"]
+  "include": [
+    "src/index.tsx",
+    "typings/**/*.d.ts"
+  ]
 }
