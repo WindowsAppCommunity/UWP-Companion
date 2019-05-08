@@ -4,7 +4,7 @@ import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from
 import { ResponsiveMode } from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 import libs from '../../../core/libs.js';
 import { settings } from '../../../core/helpers/settings.js';
-import { IClient, IPlatform } from '../../../core/core';
+import { IClient, IPlatform } from '../../../core/typings';
 
 const dropdownStyles: Partial<IDropdownStyles> = {
   dropdown: { width: 300 }

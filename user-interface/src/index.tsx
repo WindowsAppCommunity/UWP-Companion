@@ -21,7 +21,7 @@ mergeStyles({
 
 
 import logo from '../../assets/logos/popup.png';
-import { IClient } from '../../core/core';
+import { IClient } from '../../core/typings';
 
 ReactDOM.render(
   <Customizer {...FluentCustomizations}>
