@@ -13,7 +13,6 @@ lib-esm
 lib-es2015
 build
 coverage
-dist
 temp
 
 *.scss.ts

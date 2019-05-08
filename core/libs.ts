@@ -10,8 +10,9 @@ import { AppsEnum } from './helpers/appAssociations.js';
 import mytube from './lib/youtube/mytube.js';
 import { GetPlatformNameFromUrl } from './helpers/misc.js';
 
-export function checkLib(uri, tabId, bypass) {
-    let platformName;
+export function checkLib(uri : string, tabId : string, bypass : boolean) {
+    let platformName: string | undefined;
+
     for (const name of Object.keys(platforms)) {
         if ((settings[name].isEnabled || bypass) && platforms[name].baseUrlMatch(uri)) {
             platformName = name;
@@ -20,7 +21,7 @@ export function checkLib(uri, tabId, bypass) {
     if (platformName == undefined) return;
 
     // perform URL parsing for that platform's preffered client
-    let protocol;
+    let protocol : string;
     Object.entries(platforms[platformName].clients).forEach(([clientName, client]) => {
         if (clientName == settings[platformName].prefferedApp) {
             protocol = client.parseUrl(uri, tabId);

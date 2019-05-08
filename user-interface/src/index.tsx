@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components/App';
+import { PlatformViewer } from './components/PlatformViewer';
 import { mergeStyles } from '@uifabric/styling';
 import { FluentCustomizations } from '@uifabric/fluent-theme';
-import { Customizer } from 'office-ui-fabric-react';
+import { Customizer, Stack, Text, Link, FontWeights } from 'office-ui-fabric-react';
+import { Image } from 'office-ui-fabric-react/lib/Image';
+
+const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
 // Inject some global styles
 mergeStyles({
@@ -16,9 +19,19 @@ mergeStyles({
   }
 });
 
+
+import logo from '../../assets/logos/popup.png';
+import { IClient } from '../../core/core';
+
 ReactDOM.render(
   <Customizer {...FluentCustomizations}>
-    <App />
+    <Stack>
+      <Image src={logo} alt="logo" />
+      <Text variant="xxLarge" styles={boldStyle}>
+        UWP Companion
+      </Text>
+      <PlatformViewer  />
+    </Stack>
   </Customizer>,
   document.getElementById('app')
 );
