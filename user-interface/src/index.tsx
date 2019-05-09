@@ -1,10 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { PlatformView } from './components/PlatformView';
 import { mergeStyles } from '@uifabric/styling';
 import { FluentCustomizations } from '@uifabric/fluent-theme';
-import { Customizer, Stack, Text, Link, FontWeights, ISettings, Icon } from 'office-ui-fabric-react';
+import { Customizer, Stack, Text, FontWeights, ISettings } from 'office-ui-fabric-react';
+import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { Image } from 'office-ui-fabric-react/lib/Image';
+import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+import { BrowserRouter as Router, Route, Link, BrowserRouter } from "react-router-dom";
+
+initializeIcons(/* optional base url */);
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 export let backgroundColor: string = "#f3f2f1";
 
@@ -14,6 +21,7 @@ const boldStyle = {
     backgroundColor: backgroundColor
   }
 };
+
 // Inject some global styles
 mergeStyles({
   selectors: {
@@ -28,67 +36,42 @@ mergeStyles({
 import logo from '../../assets/logos/popup.png';
 import { IClient, IPlatform, IClientConfig, ILib } from '../../core/typings';
 import libs, { checkLib } from '../../core/libs.js';
-import { setSettings, getSettings, settings } from '../../core/helpers/settings.js';
-import { GetPlatformNameFromUrl } from '../../core/helpers/misc.js';
 
+import { MainView } from './components/MainView';
+import { SettingsView } from './components/SettingsView';
 chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
-  let platformName = GetPlatformNameFromUrl(tab[0].url);
-  if (platformName != undefined) {
-    let PrefferedClient = (settings as ISettings)[platformName].prefferedApp;
-    let platform = (libs as unknown as ILib).platforms[platformName];
 
-    ReactDOM.render(
-      <Customizer {...FluentCustomizations}>
+  ReactDOM.render(
+    <Customizer {...FluentCustomizations}>
+      <Router>
         <Stack
           styles={{
             root: {
-              margin: '0 auto',
-              textAlign: 'center',
-              backgroundColor: backgroundColor
-            }
-          }}>
-          <Text variant="xxLarge" styles={boldStyle}>
-            <Image src={logo} alt="logo" />
-            UWP Companion
-        </Text>
-          <PlatformView DefaultClient={platform.clients[PrefferedClient]} Platform={platform} />
-        </Stack>
-      </Customizer>,
-      document.getElementById('app')
-    );
-  } else {
-    ReactDOM.render(
-      <Customizer {...FluentCustomizations} >
-        <Stack
-          styles={{
-            root: {
-              width: '300px',
+              width: '320px',
               height: '300px;',
-              margin: '0 auto',
+              margin: '0',
+              paddingBottom: "20px",
               textAlign: 'center',
               backgroundColor: backgroundColor
             }
           }}>
+          <Link to="/settings" style={{
+            position: "absolute", right: "10px", top: "25px", color: "black"
+          }}>
+            <FontAwesomeIcon className="settings-cog" icon={faCog} style={{ fontSize: 23 }} />
+          </Link>
+
           <Text variant="xxLarge" styles={boldStyle}>
-            UWP Companion
             <Image src={logo} alt="logo" />
+            UWP Companion
           </Text>
-          <Stack verticalAlign="end" gap={15}>
-            <Text style={{ fontSize: 55 }}>
-              =(
-            </Text>
 
-            <Text variant="xLarge">
-              Unsupported website
-            </Text>
-
-            <Text variant="smallPlus">Know of a compatible app?</Text>
-            <Text variant="smallPlus"><Link>See how you can help</Link></Text>
-          </Stack>
+          {/* TODO Route to MainView and figure out how to pass in backgroundColor and the URL */}
+          <Route path="/" render={(props) => <MainView url={(tab[0].url)} backgroundColor={backgroundColor} />} />
+          <Route path="/settings" components={SettingsView} />
         </Stack>
-      </Customizer>,
-      document.getElementById('app')
-    );
-  }
+      </Router>
+    </Customizer>,
+    document.getElementById('app')
+  );
 });
-

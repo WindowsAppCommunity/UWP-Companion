@@ -5,10 +5,7 @@ const platforms = {
     YouTube: YouTube
 };
 
-import { getSettings, setSettings, settings } from './helpers/settings.js';
-import { AppsEnum } from './helpers/appAssociations.js';
-import mytube from './lib/youtube/mytube.js';
-import { GetPlatformNameFromUrl } from './helpers/misc.js';
+import { settings } from './helpers/settings.js';
 
 export function checkLib(uri, tabId, bypass) {
     let platformName;
