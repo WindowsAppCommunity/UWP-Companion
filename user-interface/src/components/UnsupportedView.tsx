@@ -1,4 +1,4 @@
-import { Customizer, Stack, Text, FontWeights, ISettings, DefaultButton, Link } from 'office-ui-fabric-react';
+import { Stack, Text, Link } from 'office-ui-fabric-react';
 import React from 'react';
 
 export interface IUnsupportedView {

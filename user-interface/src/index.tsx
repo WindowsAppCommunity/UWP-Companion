@@ -2,13 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { mergeStyles } from '@uifabric/styling';
 import { FluentCustomizations } from '@uifabric/fluent-theme';
-import { Customizer, Stack, Text, FontWeights, ISettings } from 'office-ui-fabric-react';
-import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { Customizer, Stack, Text, FontWeights, Link } from 'office-ui-fabric-react';
 import { Image } from 'office-ui-fabric-react/lib/Image';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-import { BrowserRouter as Router, Route, Link, BrowserRouter } from "react-router-dom";
 
-initializeIcons(/* optional base url */);
+initializeIcons();
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
@@ -34,16 +32,31 @@ mergeStyles({
 });
 
 import logo from '../../assets/logos/popup.png';
-import { IClient, IPlatform, IClientConfig, ILib } from '../../core/typings';
-import libs, { checkLib } from '../../core/libs.js';
 
 import { MainView } from './components/MainView';
 import { SettingsView } from './components/SettingsView';
-chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
 
-  ReactDOM.render(
-    <Customizer {...FluentCustomizations}>
-      <Router>
+function ToggleSettings(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+  switch (CurrentView) {
+    case 0:
+      CurrentView = Views.MainView;
+      break;
+    case 1:
+      CurrentView = Views.SettingsView;
+      break;
+    default:
+      console.error("Invalid view: " + CurrentView, "Valid views are: " + JSON.stringify(Views));
+  }
+  render();
+}
+
+enum Views { SettingsView, MainView };
+let CurrentView: Views = Views.MainView;
+
+function render() {
+  chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
+    ReactDOM.render(
+      <Customizer {...FluentCustomizations}>
         <Stack
           styles={{
             root: {
@@ -55,10 +68,12 @@ chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
               backgroundColor: backgroundColor
             }
           }}>
-          <Link to="/settings" style={{
+          <Link onClick={ToggleSettings} style={{
             position: "absolute", right: "10px", top: "25px", color: "black"
           }}>
-            <FontAwesomeIcon className="settings-cog" icon={faCog} style={{ fontSize: 23 }} />
+            <div>
+              <FontAwesomeIcon className="settings-cog" icon={faCog} style={{ fontSize: 23 }} />
+            </div>
           </Link>
 
           <Text variant="xxLarge" styles={boldStyle}>
@@ -66,12 +81,21 @@ chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
             UWP Companion
           </Text>
 
-          {/* TODO Route to MainView and figure out how to pass in backgroundColor and the URL */}
-          <Route path="/" render={(props) => <MainView url={(tab[0].url)} backgroundColor={backgroundColor} />} />
-          <Route path="/settings" components={SettingsView} />
+          {(() => {
+            switch (+CurrentView) {
+              case Views.SettingsView:
+                return <SettingsView backgroundColor={backgroundColor} />
+              case Views.MainView:
+                return <MainView url={tab[0].url} backgroundColor={backgroundColor} />
+              default:
+                throw new Error("Invalid view when rendering");
+            }
+          })()}
         </Stack>
-      </Router>
-    </Customizer>,
-    document.getElementById('app')
-  );
-});
+      </Customizer>,
+      document.getElementById('app')
+    );
+  });
+}
+
+render();

@@ -21,12 +21,9 @@ export interface IMainViewState {
 export class MainView extends React.Component<IMainViewProps, IMainViewState> {
     constructor(props: IMainViewProps) {
         super(props);
-        console.log("hello from mainview")
         let platformName: string | undefined = GetPlatformNameFromUrl(this.props.url);
         let PrefferedClient: string | undefined = platformName ? (settings as ISettings)[platformName].prefferedApp : undefined;
         let platform: IPlatform | undefined = platformName ? (libs as unknown as ILib).platforms[platformName] : undefined;
-        /* TODO: I was working on adding state so it could be used below */
-
 
         this.state = {
             platform: platform,
@@ -45,7 +42,11 @@ export class MainView extends React.Component<IMainViewProps, IMainViewState> {
                         backgroundColor: this.props.backgroundColor
                     }
                 }}>
-                {this.state.platform != undefined && this.state.PrefferedClient != undefined ? <PlatformView DefaultClient={this.state.platform.clients[this.state.PrefferedClient]} Platform={this.state.platform} /> : <UnsupportedView backgroundColor={this.props.backgroundColor} />}
+                {
+                    this.state.platform != undefined && this.state.PrefferedClient != undefined
+                    ? <PlatformView DefaultClient={this.state.platform.clients[this.state.PrefferedClient]} Platform={this.state.platform} />
+                    : <UnsupportedView backgroundColor={this.props.backgroundColor} />
+                }
             </Stack>
         )
     }

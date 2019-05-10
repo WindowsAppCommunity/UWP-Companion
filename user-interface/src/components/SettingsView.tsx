@@ -24,7 +24,7 @@ export class SettingsView extends React.Component<ISettingsView> {
                 <Stack verticalAlign="center" gap={15}>
                     <Text style={{ fontSize: 55 }}>
                         Settings
-            </Text>
+                    </Text>
 
                     <Text variant="smallPlus">Know of a compatible app?</Text>
                     <Text variant="smallPlus"><Link>See how you can help</Link></Text>
