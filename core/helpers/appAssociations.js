@@ -12,5 +12,11 @@ export let AppsEnum = Object.freeze({
     },
     Mixer: {
         "Mixplay": "Mixplay"
+    },
+    Spotify: {
+        "Spotimo": "Spotimo",
+        "Xpotify": "Xpotify"
     }
-})
+});
+
+//TODO: Get rid of this in the future, these shouldn't be hardcoded.
