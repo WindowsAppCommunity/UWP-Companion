@@ -6,7 +6,6 @@ import libs from '../../../core/libs.js';
 import { settings, getSettings } from '../../../core/helpers/settings.js';
 import { IPlatform, IClient, IClientConfig, ILib, ISettings, IPlatforms } from '../../../core/typings';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { backgroundColor } from '../index';
 getSettings();
 
 const dropdownStyles: Partial<IDropdownStyles> = {
@@ -112,8 +111,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
         styles={{
           root: {
             margin: '0px 10px',
-            textAlign: 'center',
-            backgroundColor: backgroundColor
+            textAlign: 'center'
           }
         }}>
 
