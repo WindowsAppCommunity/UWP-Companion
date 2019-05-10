@@ -8,6 +8,7 @@ export interface IClient {
 
 export interface IClientConfig {
     color: string;
+    // Technically a logo is not "required" as it will fall back to the platform logo, but it is HIGHLY RECOMMENDED that you add one
     logo?: string;
 }
 
