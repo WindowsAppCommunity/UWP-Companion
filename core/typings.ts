@@ -12,6 +12,7 @@ export interface IClientConfig {
 
 export interface IPlatform {
     name: string,
+    icon: string,
     baseUrlMatch: Function,
     shouldCloseOnSwitch: Function,
     clients: {

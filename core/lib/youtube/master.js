@@ -43,6 +43,7 @@ function pauseVideo(tabId) {
 
 export const YouTube = {
     name: "YouTube",
+    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_(2017).svg/1280px-YouTube_full-color_icon_(2017).svg.png",
     baseUrlMatch: isYoutube,
     shouldCloseOnSwitch: shouldCloseOnSwitch,
     pauseVideo: pauseVideo,
