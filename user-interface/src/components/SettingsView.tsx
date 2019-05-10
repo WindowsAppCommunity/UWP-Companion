@@ -70,6 +70,15 @@ export class SettingsView extends React.Component<ISettingsView, ISettingsState>
                      </CompoundButton>
 
                     <Panel
+                        styles={{
+                            navigation: {
+                                position: "absolute",
+                                width: "100vw"
+                            },
+                            header: {
+                                marginTop: "10px"
+                            }
+                        }}
                         isOpen={this.state.showPanel}
                         type={PanelType.smallFluid}
                         onDismiss={this._hidePanel}
@@ -86,7 +95,6 @@ export class SettingsView extends React.Component<ISettingsView, ISettingsState>
                                 }
                             })()
                         }
-
                     </Panel>
 
                 </Stack>
