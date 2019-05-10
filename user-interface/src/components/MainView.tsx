@@ -10,6 +10,7 @@ import libs from '../../../core/libs';
 export interface IMainViewProps {
     backgroundColor: string;
     url?: string;
+    platform?: IPlatform;
 }
 
 export interface IMainViewState {
@@ -17,13 +18,17 @@ export interface IMainViewState {
     platform: IPlatform | undefined;
 }
 
-
 export class MainView extends React.Component<IMainViewProps, IMainViewState> {
     constructor(props: IMainViewProps) {
         super(props);
         let platformName: string | undefined = GetPlatformNameFromUrl(this.props.url);
         let PrefferedClient: string | undefined = platformName ? (settings as ISettings)[platformName].prefferedApp : undefined;
         let platform: IPlatform | undefined = platformName ? (libs as unknown as ILib).platforms[platformName] : undefined;
+
+        if (this.props.platform) {
+            platform = this.props.platform;
+            PrefferedClient = (settings as ISettings)[platform.name].prefferedApp;
+        }
 
         this.state = {
             platform: platform,
@@ -44,8 +49,8 @@ export class MainView extends React.Component<IMainViewProps, IMainViewState> {
                 }}>
                 {
                     this.state.platform != undefined && this.state.PrefferedClient != undefined
-                    ? <PlatformView DefaultClient={this.state.platform.clients[this.state.PrefferedClient]} Platform={this.state.platform} />
-                    : <UnsupportedView backgroundColor={this.props.backgroundColor} />
+                        ? <PlatformView DefaultClient={this.state.platform.clients[this.state.PrefferedClient]} Platform={this.state.platform} />
+                        : <UnsupportedView backgroundColor={this.props.backgroundColor} />
                 }
             </Stack>
         )

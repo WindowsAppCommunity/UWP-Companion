@@ -92,7 +92,6 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
     }
 
     private _onFilterChanged(newValue: any) {
-        console.log([newValue]);
         if (newValue == "") {
             this.setState({
                 allItems: this.state.allItems,
@@ -105,9 +104,12 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
             shownItems: [...this.state.shownItems.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()))]
         });
     }
+    private onPlatformClicked(platform: IPlatform) {
+        
+    }
     private _onRenderCell(item?: IPlatform | undefined, index?: number | undefined, isScrolling?: boolean | undefined): JSX.Element {
         return (
-            <div className={classNames.itemCell} data-is-focusable={true}>
+            <div className={classNames.itemCell} data-is-focusable={true} onClick={() => { if (item) this.onPlatformClicked(item) }}>
                 <Image
                     className={classNames.itemImage}
                     src={isScrolling || item == undefined ? undefined : item.icon}
