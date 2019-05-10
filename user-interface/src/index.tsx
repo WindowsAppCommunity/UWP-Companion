@@ -26,7 +26,8 @@ mergeStyles({
     ':global(body), :global(html), :global(#app)': {
       margin: 0,
       padding: 0,
-      height: '100vh'
+      height: '100vh',
+      backgroundColor: backgroundColor
     }
   }
 });
@@ -56,18 +57,17 @@ let CurrentView: Views = Views.MainView;
 function render() {
   chrome.tabs.query({ currentWindow: true, active: true }, function(tab) {
     ReactDOM.render(
-      <Customizer {...FluentCustomizations}>
-        <Stack
-          styles={{
-            root: {
-              width: '320px',
-              height: '300px;',
-              margin: '0',
-              paddingBottom: "20px",
-              textAlign: 'center',
-              backgroundColor: backgroundColor
-            }
-          }}>
+      <Customizer {...FluentCustomizations} >
+        <Stack styles={{
+        root: {
+          width: '320px',
+          height: '300px;',
+          margin: '0',
+          paddingBottom: "20px",
+          textAlign: 'center',
+          backgroundColor: backgroundColor
+        }
+      }}>
           <Link onClick={ToggleSettings} style={{
             position: "absolute", right: "10px", top: "25px", color: "black"
           }}>
