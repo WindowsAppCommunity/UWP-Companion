@@ -16,7 +16,7 @@ export interface IPlatform {
     name: string,
     icon: string,
     baseUrlMatch: Function,
-    shouldCloseOnSwitch: Function,
+    shouldCloseOnSwitch?: Function,
     clients: {
         [key: string]: IClient;
     }

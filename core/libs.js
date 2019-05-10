@@ -1,8 +1,10 @@
 // This is here to keep code neat in the future
 import { YouTube } from './lib/youtube/master.js';
+import { Reddit } from './lib/reddit/master.js';
 
 const platforms = {
-    YouTube: YouTube
+    YouTube: YouTube,
+    Reddit: Reddit
 };
 
 import { settings } from './helpers/settings.js';
