@@ -29,13 +29,16 @@ export class MainView extends React.Component<IMainViewProps, IMainViewState> {
             PrefferedClient: PrefferedClient
         };
     }
+
+    private isPlatform(): boolean { return (this.state.platform != undefined && this.state.PrefferedClient != undefined); }
+    
     render() {
         return (
             <Stack
                 styles={{
                     root: {
                         width: '300px',
-                        height: '300px',
+                        height: ( this.isPlatform() ? '400px' : '300px'),
                         margin: '15px auto',
                         textAlign: 'center',
                         backgroundColor: this.props.backgroundColor

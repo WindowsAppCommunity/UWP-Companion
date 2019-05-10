@@ -45,7 +45,7 @@ export class App extends React.Component<IAppProps, {}> {
             <Stack styles={{
                 root: {
                     width: '320px',
-                    height: '300px',
+                    height: '400px',
                     margin: '0px',
                     padding: '0px',
                     textAlign: 'center',
@@ -60,7 +60,7 @@ export class App extends React.Component<IAppProps, {}> {
                     </div>
                 </Link>
 
-                <Text variant="xLarge" styles={this.boldStyle} style={{ marginBottom: "20px" }}>
+                <Text variant="xLarge" styles={this.boldStyle} style={{ marginBottom: "20px", marginTop: "20px" }}>
                     {(() => {
                         switch (+CurrentView) {
                             case Views.SettingsView:

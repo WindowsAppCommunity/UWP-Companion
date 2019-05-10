@@ -15,6 +15,7 @@ export class UnsupportedView extends React.Component<IUnsupportedView> {
                 styles={{
                     root: {
                         margin: '0 auto',
+                        height: '300px',
                         textAlign: 'center',
                         backgroundColor: this.props.backgroundColor
                     }
