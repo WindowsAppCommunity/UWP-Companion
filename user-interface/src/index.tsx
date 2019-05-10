@@ -59,15 +59,15 @@ function render() {
     ReactDOM.render(
       <Customizer {...FluentCustomizations} >
         <Stack styles={{
-        root: {
-          width: '320px',
-          height: '300px;',
-          margin: '0',
-          paddingBottom: "20px",
-          textAlign: 'center',
-          backgroundColor: backgroundColor
-        }
-      }}>
+          root: {
+            width: '320px',
+            height: '300px',
+            margin: '0px',
+            padding: '0px',
+            textAlign: 'center',
+            backgroundColor: backgroundColor
+          }
+        }}>
           <Link onClick={ToggleSettings} style={{
             position: "absolute", right: "10px", top: "25px", color: "black"
           }}>
@@ -76,9 +76,18 @@ function render() {
             </div>
           </Link>
 
-          <Text variant="xxLarge" styles={boldStyle}>
+          <Text variant="xLarge" styles={boldStyle} style={{marginBottom: "20px"}}>
             <Image src={logo} alt="logo" />
-            UWP Companion
+            {(() => {
+              switch (+CurrentView) {
+                case Views.SettingsView:
+                  return "Settings";
+                case Views.MainView:
+                  return "UWP Companion"
+                default:
+                  throw new Error("Invalid view when rendering title");
+              }
+            })()}
           </Text>
 
           {(() => {
@@ -88,7 +97,7 @@ function render() {
               case Views.MainView:
                 return <MainView url={tab[0].url} backgroundColor={backgroundColor} />
               default:
-                throw new Error("Invalid view when rendering");
+                throw new Error("Invalid view when rendering view");
             }
           })()}
         </Stack>

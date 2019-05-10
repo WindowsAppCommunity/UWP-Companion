@@ -36,8 +36,8 @@ export class MainView extends React.Component<IMainViewProps, IMainViewState> {
                 styles={{
                     root: {
                         width: '300px',
-                        height: '300px;',
-                        margin: '0 auto',
+                        height: '300px',
+                        margin: '15px auto',
                         textAlign: 'center',
                         backgroundColor: this.props.backgroundColor
                     }

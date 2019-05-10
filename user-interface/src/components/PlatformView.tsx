@@ -5,13 +5,12 @@ import { ResponsiveMode } from 'office-ui-fabric-react/lib/utilities/decorators/
 import libs from '../../../core/libs.js';
 import { settings, getSettings } from '../../../core/helpers/settings.js';
 import { IPlatform, IClient, IClientConfig, ILib, ISettings, IPlatforms } from '../../../core/typings';
-import { GetPlatformNameFromUrl } from '../../../core/helpers/misc.js';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { backgroundColor } from '../index';
 getSettings();
 
 const dropdownStyles: Partial<IDropdownStyles> = {
-  dropdown: { width: 300 }
+  dropdown: { width: 280 }
 };
 
 const ClientsDropdown: IDropdownOption[] = [
@@ -112,8 +111,6 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
         gap={5}
         styles={{
           root: {
-            width: '300px',
-            height: '300px;',
             margin: '0px 10px',
             textAlign: 'center',
             backgroundColor: backgroundColor

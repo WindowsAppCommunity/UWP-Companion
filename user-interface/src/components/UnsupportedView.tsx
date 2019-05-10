@@ -14,8 +14,6 @@ export class UnsupportedView extends React.Component<IUnsupportedView> {
             <Stack verticalAlign="center"
                 styles={{
                     root: {
-                        width: '300px',
-                        height: '300px;',
                         margin: '0 auto',
                         textAlign: 'center',
                         backgroundColor: this.props.backgroundColor
