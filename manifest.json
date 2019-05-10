@@ -1,0 +1,41 @@
+{
+    "name": "UWP Companion",
+    "short_name": "UWP Companion",
+    "author": "Arlo Godfrey",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "Redirect various websites to a preferred third party UWP app",
+    "permissions": [
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking",
+        "webNavigation",
+        "tabs",
+        "storage"
+    ],
+    "icons": {
+        "48": "assets/logos/Square48x48LogoLight.png",
+        "128": "assets/logos/Square128x128LogoLight.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "48": "assets/logos/BrowserAction.png"
+        },
+        "default_popup": "user-interface/index.html",
+        "theme_icons": [
+            {
+                "light": "assets/logos/Square48x48Logo.png",
+                "dark": "assets/logos/Square48x48LogoLight.png",
+                "size": 48
+            },
+            {
+                "light": "assets/logos/Square128x128Logo.png",
+                "dark": "assets/logos/Square128x128LogoLight.png",
+                "size": 128
+            }
+        ]
+    },
+    "background": {
+        "page": "background-script/index.html"
+    }
+}

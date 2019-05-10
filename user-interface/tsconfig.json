@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "target": "es5",
+    "module": "es2015",
+    "outDir": "./lib",
+    "importHelpers": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "allowJs": true,
+    "types": [
+      "chrome"
+    ],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react"
+  },
+  "include": [
+    "src/index.tsx",
+    "typings/**/*.d.ts"
+  ]
+}
