@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Customizer, Stack, Text, FontWeights, ISettings, DefaultButton, Link } from 'office-ui-fabric-react';
 import { PlatformView } from './PlatformView';
 import { GetPlatformNameFromUrl } from '../../../core/helpers/misc.js';
@@ -10,7 +10,6 @@ import libs from '../../../core/libs';
 export interface IMainViewProps {
     backgroundColor: string;
     url?: string;
-    platform?: IPlatform;
 }
 
 export interface IMainViewState {
@@ -24,11 +23,6 @@ export class MainView extends React.Component<IMainViewProps, IMainViewState> {
         let platformName: string | undefined = GetPlatformNameFromUrl(this.props.url);
         let PrefferedClient: string | undefined = platformName ? (settings as ISettings)[platformName].prefferedApp : undefined;
         let platform: IPlatform | undefined = platformName ? (libs as unknown as ILib).platforms[platformName] : undefined;
-
-        if (this.props.platform) {
-            platform = this.props.platform;
-            PrefferedClient = (settings as ISettings)[platform.name].prefferedApp;
-        }
 
         this.state = {
             platform: platform,

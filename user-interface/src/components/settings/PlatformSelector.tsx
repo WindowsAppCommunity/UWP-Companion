@@ -5,6 +5,9 @@ import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { mergeStyleSets, getTheme, DefaultFontStyles, FontSizes, getFocusStyle } from 'office-ui-fabric-react/lib/Styling';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { IPlatform } from '../../../../core/typings';
+import { Panel, PanelType, ISettings } from 'office-ui-fabric-react';
+import { PlatformView } from '../PlatformView';
+import { settings } from '../../../../core/helpers/settings';
 
 export interface IPlatformSelectorProps {
     items: IPlatform[];
@@ -13,6 +16,12 @@ export interface IPlatformSelectorProps {
 interface IPlatformSelectorState {
     allItems: IPlatform[];
     shownItems: IPlatform[];
+    SelectedPlatform: IPlatformSelectedState;
+}
+
+interface IPlatformSelectedState {
+    PanelIsOpen: boolean;
+    Platform?: IPlatform;
 }
 
 const theme = getTheme();
@@ -69,25 +78,52 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
         super(props);
 
         this._onFilterChanged = this._onFilterChanged.bind(this);
+        this._onRenderCell = this._onRenderCell.bind(this);
+        this.onPlatformClicked = this.onPlatformClicked.bind(this);
 
         this.state = {
             allItems: this.props.items,
-            shownItems: this.props.items
+            shownItems: this.props.items,
+            SelectedPlatform: {
+                PanelIsOpen: false
+            }
         };
     }
     public render(): JSX.Element {
         return (
-            <FocusZone direction={FocusZoneDirection.vertical}>
-                <SearchBox
-                    placeholder="Filter"
-                    onChange={this._onFilterChanged}
-                    iconProps={{ iconName: 'Filter' }}
-                />
+            <div>
+                {(() => {
+                    if (this.state.SelectedPlatform.Platform != undefined) {
+                        return <Panel
+                            styles={{
+                                navigation: {
+                                    position: "absolute",
+                                    width: "100vw"
+                                },
+                                header: {
+                                    marginTop: "10px"
+                                }
+                            }}
+                            isOpen={this.state.SelectedPlatform.PanelIsOpen}
+                            type={PanelType.smallFluid}
+                            headerText={this.state.SelectedPlatform.Platform.name}>
+                            <PlatformView Platform={this.state.SelectedPlatform.Platform} DefaultClient={this.state.SelectedPlatform.Platform.clients[(settings as ISettings)[this.state.SelectedPlatform.Platform.name].prefferedApp]} />
+                        </Panel>;
+                    }
+                })()
+                }
+                <FocusZone direction={FocusZoneDirection.vertical}>
+                    <SearchBox
+                        placeholder="Filter"
+                        onChange={this._onFilterChanged}
+                        iconProps={{ iconName: 'Filter' }}
+                    />
 
-                <div className={classNames.container} data-is-scrollable={true}>
-                    <List items={this.state.shownItems} onRenderCell={this._onRenderCell} />
-                </div>
-            </FocusZone>
+                    <div className={classNames.container} data-is-scrollable={true}>
+                        <List items={this.state.shownItems} onRenderCell={this._onRenderCell} />
+                    </div>
+                </FocusZone>
+            </div>
         );
     }
 
@@ -105,7 +141,14 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
         });
     }
     private onPlatformClicked(platform: IPlatform) {
-        
+        this.setState({
+            allItems: this.state.allItems,
+            shownItems: this.state.allItems,
+            SelectedPlatform: {
+                PanelIsOpen: true,
+                Platform: platform
+            }
+        });
     }
     private _onRenderCell(item?: IPlatform | undefined, index?: number | undefined, isScrolling?: boolean | undefined): JSX.Element {
         return (
