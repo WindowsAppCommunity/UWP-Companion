@@ -49,6 +49,7 @@ export default {
     name: "myTube",
     parseUrl: getProtocolFromUrl,
     config: {
+        logo: "https://arlo.site/projects/community/logos/light-theme/myTube.png",
         color: "#303030"
     }
 };

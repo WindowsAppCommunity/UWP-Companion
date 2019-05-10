@@ -1,5 +1,6 @@
 import React from 'react';
-import { Stack, Text, Link, FontWeights } from 'office-ui-fabric-react';
+import { Stack } from 'office-ui-fabric-react';
+import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { ResponsiveMode } from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 import libs from '../../../core/libs.js';
@@ -68,6 +69,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
       Client: this.props.DefaultClient
     };
 
+    this.OnClientSelected = this.OnClientSelected.bind(this);
     PopulateClientsDropdown(this.props.Platform.name, true);
   }
 
@@ -115,6 +117,17 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
           }
         }}>
 
+        <Image
+          styles={{
+            root: {
+              margin: "auto"
+            }
+          }}
+          width={200}
+          height={200}
+          imageFit={ImageFit.centerContain}
+          src={this.state.Client.config.logo != undefined ? this.state.Client.config.logo : this.props.Platform.icon} />
+
         <Toggle
           defaultChecked={(settings as ISettings)[this.props.Platform.name].isEnabled}
           label={"Auto launch with " + this.state.Client.name}
@@ -129,7 +142,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
           onChange={this.OnCloseOnSwitchChanged}
         />
         <Dropdown placeholder="Choose another app..." responsiveMode={ResponsiveMode.large} options={ClientsDropdown} styles={dropdownStyles} onChange={this.OnClientSelected} />
-      </Stack>
+      </Stack >
     );
   }
 };

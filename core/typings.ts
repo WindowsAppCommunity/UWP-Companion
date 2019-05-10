@@ -8,6 +8,7 @@ export interface IClient {
 
 export interface IClientConfig {
     color: string;
+    logo?: string;
 }
 
 export interface IPlatform {
