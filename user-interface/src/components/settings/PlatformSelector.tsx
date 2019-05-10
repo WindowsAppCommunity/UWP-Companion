@@ -80,6 +80,7 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
         this._onFilterChanged = this._onFilterChanged.bind(this);
         this._onRenderCell = this._onRenderCell.bind(this);
         this.onPlatformClicked = this.onPlatformClicked.bind(this);
+        this._OnPanelDismissed = this._OnPanelDismissed.bind(this);
 
         this.state = {
             allItems: this.props.items,
@@ -104,6 +105,7 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
                                     marginTop: "10px"
                                 }
                             }}
+                            onDismiss={this._OnPanelDismissed}
                             isOpen={this.state.SelectedPlatform.PanelIsOpen}
                             type={PanelType.smallFluid}
                             headerText={this.state.SelectedPlatform.Platform.name}>
@@ -126,21 +128,40 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
             </div>
         );
     }
-
+    private _OnPanelDismissed() {
+        this.setState({
+            allItems: this.state.allItems,
+            shownItems: this.state.shownItems,
+            SelectedPlatform: {
+                PanelIsOpen: false
+            }
+        })
+    }
     private _onFilterChanged(newValue: any) {
         if (newValue == "") {
             this.setState({
                 allItems: this.state.allItems,
-                shownItems: this.state.allItems
+                shownItems: this.state.allItems,
+                SelectedPlatform: {
+                    PanelIsOpen: false
+                }
             });
             return;
         }
         this.setState({
             allItems: this.state.allItems,
-            shownItems: [...this.state.shownItems.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()))]
+            shownItems: [...this.state.shownItems.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()))],
+            SelectedPlatform: {
+                PanelIsOpen: false
+            }
         });
     }
-    private onPlatformClicked(platform: IPlatform) {
+    private onPlatformClicked(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        let data = event.currentTarget.getAttribute("data-platform");
+        if (data == undefined) return;
+        // Communicating data this way is probably a cardinal sin but it kept rerendering and forcing the panel open and there was no other way
+        let platform: IPlatform = JSON.parse(data) as IPlatform;
+
         this.setState({
             allItems: this.state.allItems,
             shownItems: this.state.allItems,
@@ -152,7 +173,7 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
     }
     private _onRenderCell(item?: IPlatform | undefined, index?: number | undefined, isScrolling?: boolean | undefined): JSX.Element {
         return (
-            <div className={classNames.itemCell} data-is-focusable={true} onClick={() => { if (item) this.onPlatformClicked(item) }}>
+            <div className={classNames.itemCell} data-platform={JSON.stringify(item)} data-is-focusable={true} onMouseUp={this.onPlatformClicked}>
                 <Image
                     className={classNames.itemImage}
                     src={isScrolling || item == undefined ? undefined : item.icon}
