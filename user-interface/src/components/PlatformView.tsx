@@ -69,7 +69,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
       Client: this.props.DefaultClient
     };
 
-    PopulateClientsDropdown(this.props.Platform.name);
+    PopulateClientsDropdown(this.props.Platform.name, true);
   }
 
   componentDidMount() {
