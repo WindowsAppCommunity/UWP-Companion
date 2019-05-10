@@ -92,9 +92,17 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
     }
 
     private _onFilterChanged(newValue: any) {
+        console.log([newValue]);
+        if (newValue == "") {
+            this.setState({
+                allItems: this.state.allItems,
+                shownItems: this.state.allItems
+            });
+            return;
+        }
         this.setState({
             allItems: this.state.allItems,
-            shownItems: [...this.state.shownItems, ...this.state.shownItems.filter(item => item.name.includes(newValue))]
+            shownItems: [...this.state.shownItems.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()))]
         });
     }
     private _onRenderCell(item?: IPlatform | undefined, index?: number | undefined, isScrolling?: boolean | undefined): JSX.Element {
