@@ -110,10 +110,10 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
             <div className={classNames.itemCell} data-is-focusable={true}>
                 <Image
                     className={classNames.itemImage}
-                    src={isScrolling || item == undefined ? undefined : item.thumbnail}
+                    src={isScrolling || item == undefined ? undefined : item.icon}
                     width={50}
                     height={50}
-                    imageFit={ImageFit.cover}
+                    imageFit={ImageFit.centerContain}
                 />
                 <div className={classNames.itemContent}>
                     <div className={classNames.itemName}>{item != undefined ? item.name : ""}</div>
