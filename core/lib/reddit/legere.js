@@ -6,6 +6,6 @@ export default {
     name: "Legere",
     parseUrl: function(url) {
         // Other log to return different protocol URLs
-        return "legere:" + url.split("http://").join("").split("https://").join("");
+        return "legere://" + url.split("http://").join("").split("https://").join("");
     }
 }
