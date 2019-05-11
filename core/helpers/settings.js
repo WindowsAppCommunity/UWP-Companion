@@ -1,37 +1,36 @@
 import './misc.js';
-import { AppsEnum } from './appAssociations.js';
 
 export async function setSettings(Settings) {
     settings = Settings;
     chrome.storage.local.set({ settings: Settings });
 }
 
-// TODO: Preferred app should be set by the user
+// TODO: Preferred app should be set by the user, create a setup wizard
 
 const defaultSettings = {
     platforms: {
         YouTube: {
-            prefferedApp: AppsEnum.YouTube.myTube,
+            prefferedApp: "myTube",
             isEnabled: true,
             closeOnSwitch: false
         },
         Discord: {
-            prefferedApp: AppsEnum.Discord.Quarrel,
+            prefferedApp: "Quarrel",
             isEnabled: true,
             closeOnSwitch: false
         },
         Reddit: {
-            prefferedApp: AppsEnum.Reddit.Legere,
+            prefferedApp: "Legere",
             isEnabled: true,
             closeOnSwitch: false
         },
         Mixer: {
-            prefferedApp: AppsEnum.Mixer.Mixplay,
+            prefferedApp: "Mixplay",
             isEnabled: true,
             closeOnSwitch: false
         },
         Spotify: {
-            prefferedApp: AppsEnum.Spotify.Spotimo,
+            prefferedApp: "Spotimo",
             isEnabled: true,
             closeOnSwitch: false
         }
@@ -41,10 +40,17 @@ const defaultSettings = {
 
 export let settings = defaultSettings;
 
-// TODO: Every time a new platform is added above, chrome.storage.local.clear() needs to be called or you get nullrefs
 export function getSettings(cb) {
     chrome.storage.local.get(["settings"], result => {
         if (result.settings !== undefined) {
+
+            // Check for new platforms that aren't present in stored settings 
+            for (let name of Object.keys(defaultSettings.platforms)) {
+                if (result.settings.platforms[name] === undefined) {
+                    result.settings.platforms[name] == defaultSettings.platforms[name];
+                }
+            }
+
             settings = result.settings;
             if (cb) cb(result.settings);
         } else {
