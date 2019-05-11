@@ -1,3 +1,5 @@
+import { platform } from 'os';
+
 /* Typings for core js files */
 
 export interface IClient {
@@ -32,9 +34,21 @@ export interface ILib {
 }
 
 export interface ISettings {
-    [key: string]: {
-        prefferedApp: string,
-        isEnabled: boolean,
-        closeOnSwitch: boolean        
-    }
+    theme?: IThemeSetting,
+    platforms: IPlatformSettings
+    
+}
+
+export interface IPlatformSettings {
+    [key: string]: IPlatformSetting;
+}
+
+export interface IPlatformSetting {
+    prefferedApp: string,
+    isEnabled: boolean,
+    closeOnSwitch: boolean
+}
+
+export interface IThemeSetting {
+    mode: "dark" | "light";
 }
