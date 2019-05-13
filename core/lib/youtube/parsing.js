@@ -41,7 +41,7 @@ function toHHMMSS(secs) {
     return hours + ':' + minutes + ':' + seconds;
 }
 
-export default YTParser = {
+export default {
     isYoutube: isYoutube,
     hasVideo: hasVideo,
     hasPlaylist: hasPlaylist,
