@@ -22,14 +22,19 @@ chrome.webRequest.onBeforeRequest.addListener(
 
 function requestCatcher(requestDetails) {
     let protocolUrl = getProtocolUri(requestDetails.url, requestDetails.tabId, false);
-
     if (protocolUrl != undefined) {
-        launch(protocolUrl);
+        launch(protocolUrl, requestDetails);
     }
 }
 
-function launch(protocolUrl) {
-    document.getElementsByTagName("iframe")[0].src = protocolUrl;
+function launch(protocolUrl, requestDetails) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+        if (!tabs || !tabs[0]) return;
+
+        if (tabs[0].url == requestDetails.url) {
+            document.getElementsByTagName("iframe")[0].src = protocolUrl;
+        }
+    });
 }
 
 chrome.tabs.onActivated.addListener((activeInfo) => {

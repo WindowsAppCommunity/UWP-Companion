@@ -17,6 +17,7 @@ function isYoutube(url) {
 }
 
 function pauseVideo(tabId) {
+    if (tabId == undefined || tabId < 1) return;
     chrome.tabs.executeScript(tabId, {
         // Confirm that the videos are playing and loaded before trying to pause it
         code: `
