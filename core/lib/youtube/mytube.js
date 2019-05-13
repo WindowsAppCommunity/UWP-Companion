@@ -37,7 +37,7 @@ function getProtocolFromUrl(url, tabId) {
     if (protocol != undefined) {
         console.log(protocol);
         console.log("Url: " + url);
-        if (settings.YouTube.closeOnSwitch == false && tabId != undefined) {
+        if (settings.platforms.YouTube.closeOnSwitch == false && tabId != undefined) {
             //pauseVideo(tabId);
         }
     }
