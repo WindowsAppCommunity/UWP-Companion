@@ -10,6 +10,7 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
 
 let currentTabId;
 getSettings();
+launch = debounce(launch, 1500, true);
 
 chrome.webRequest.onBeforeRequest.addListener(
     requestCatcher,
@@ -23,8 +24,12 @@ function requestCatcher(requestDetails) {
     let protocolUrl = getProtocolUri(requestDetails.url, requestDetails.tabId, false);
 
     if (protocolUrl != undefined) {
-        document.getElementsByTagName("iframe")[0].src = protocolUrl;
+        launch(protocolUrl);
     }
+}
+
+function launch(protocolUrl) {
+    document.getElementsByTagName("iframe")[0].src = protocolUrl;
 }
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
