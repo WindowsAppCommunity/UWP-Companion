@@ -65,21 +65,27 @@ function pauseVideo(tabId) {
     chrome.tabs.executeScript(tabId, {
         // Confirm that the videos are playing and loaded before trying to pause it
         code: `
+                let timePassed = 0;
+                
                 function recursiveVideoCheck() {
                     document.querySelectorAll('video').forEach(vid => {
                         if(vid.currentTime > 0 && !vid.paused) {
+                            consonle
                            vid.pause();
                         } else {
-                            setTimeout(()=>{
-                                recursiveVideoCheck();
-                            }, 200);
+                            if(timePassed < 5000) {
+                                setTimeout(()=>{
+                                    timePassed += 200;
+                                    recursiveVideoCheck();
+                                }, 200);
+                            }
                         }
                     });
                 }
                 window.addEventListener("load", function(event) { 
                     recursiveVideoCheck(); // For when it fires before the page is loaded
                 });
-                recursiveVideoCheck(); // For when it fires after the page is loaded
+                recursiveVideoCheck();
                 `
     });
 }
