@@ -45,9 +45,14 @@ function getProtocolFromUrl(url, tabId) {
     return protocol;
 }
 
+function postLaunch(tabId) {
+    pauseVideo(tabId);
+}
+
 export default {
     name: "myTube",
     parseUrl: getProtocolFromUrl,
+    postLaunch: postLaunch,
     config: {
         logo: "https://arlo.site/projects/community/logos/light-theme/myTube.png",
         color: "#303030"
