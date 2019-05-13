@@ -1,6 +1,6 @@
 function hasVideo(url) {
     if (typeof url == 'string') {
-        let match = url.match(/^.*(?:[&|?]v=)([a-zA-Z0-9-_]+)/);
+        let match = url.match(/^.*(?:[&|?]v=)([a-zA-Z0-9-_]{11})/);
         return (match && match[1]) ? match[1] : null;
     } else console.error('Incorrect data recieved while checking for video');
 }
