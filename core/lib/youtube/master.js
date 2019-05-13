@@ -1,5 +1,4 @@
 import myTube from './mytube.js';
-import perfectTube from './perfecttube.js';
 
 let clients = {
     myTube: myTube
