@@ -10,7 +10,6 @@ const platforms = {
 };
 
 import { settings } from './helpers/settings.js';
-import { platform } from 'os';
 
 export function getPlatformName(uri, bypass) {
     let platformName;

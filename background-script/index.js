@@ -8,6 +8,7 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
     chrome.tabs = browser.tabs;
 }
 
+let currentTabId;
 getSettings();
 
 chrome.webRequest.onBeforeRequest.addListener(
@@ -17,6 +18,8 @@ chrome.webRequest.onBeforeRequest.addListener(
 );
 
 function requestCatcher(requestDetails) {
+    if (currentTabId != requestDetails.tabId) return;
+    
     let protocolUrl = checkLib(requestDetails.url, requestDetails.tabId, false);
 
     if (protocolUrl != undefined) {
@@ -25,6 +28,10 @@ function requestCatcher(requestDetails) {
         };
     }
 }
+
+chrome.tabs.onActivated.addListener((activeInfo) => {
+    currentTabId = activeInfo.tabId;
+});
 
 chrome.runtime.onMessage.addListener(function(request) {
     console.log("message received: ", request);
