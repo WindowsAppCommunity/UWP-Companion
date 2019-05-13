@@ -13,13 +13,14 @@ getSettings();
 
 chrome.webRequest.onBeforeRequest.addListener(
     requestCatcher,
-    { urls: ["<all_urls>"] },
+    {
+        urls: ["<all_urls>"],
+        tabId: currentTabId
+    },
     ["blocking"]
 );
 
-function requestCatcher(requestDetails) {
-    if (currentTabId != requestDetails.tabId) return;
-    
+function requestCatcher(requestDetails) {    
     let protocolUrl = checkLib(requestDetails.url, requestDetails.tabId, false);
 
     if (protocolUrl != undefined) {
