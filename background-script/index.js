@@ -1,5 +1,5 @@
-import libs, { checkLib } from '../core/libs.js';
-import { setSettings, getSettings, settings } from '../core/helpers/settings.js';
+import { getProtocolUri } from '../core/libs.js';
+import { setSettings, getSettings } from '../core/helpers/settings.js';
 import { debounce } from '../core/helpers/misc.js';
 import { YouTube } from '../core/lib/youtube/master.js';
 
@@ -8,23 +8,33 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
     chrome.tabs = browser.tabs;
 }
 
+let currentTabId;
 getSettings();
+launch = debounce(launch, 1500, true);
 
 chrome.webRequest.onBeforeRequest.addListener(
     requestCatcher,
-    { urls: ["<all_urls>"] },
-    ["blocking"]
+    {
+        urls: ["<all_urls>"],
+        tabId: currentTabId
+    }
 );
 
 function requestCatcher(requestDetails) {
-    let protocolUrl = checkLib(requestDetails.url, requestDetails.tabId, false);
+    let protocolUrl = getProtocolUri(requestDetails.url, requestDetails.tabId, false);
 
     if (protocolUrl != undefined) {
-        return {
-            redirectUrl: protocolUrl
-        };
+        launch(protocolUrl);
     }
 }
+
+function launch(protocolUrl) {
+    document.getElementsByTagName("iframe")[0].src = protocolUrl;
+}
+
+chrome.tabs.onActivated.addListener((activeInfo) => {
+    currentTabId = activeInfo.tabId;
+});
 
 chrome.runtime.onMessage.addListener(function(request) {
     console.log("message received: ", request);
