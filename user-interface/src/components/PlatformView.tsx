@@ -89,17 +89,17 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
       this.props.OnClientChanged(newClient);
     }
 
-    (settings as ISettings)[this.props.Platform.name].prefferedApp = newClient.name;
+    (settings as ISettings).platforms[this.props.Platform.name].prefferedApp = newClient.name;
     RelaySettingsState();
   };
 
   OnEnabledChanged = (event: React.MouseEvent<HTMLElement, MouseEvent>, checked?: boolean | undefined) => {
-    if (checked != undefined) (settings as ISettings)[this.props.Platform.name].isEnabled = checked;
+    if (checked != undefined) (settings as ISettings).platforms[this.props.Platform.name].isEnabled = checked;
     RelaySettingsState();
   };
 
   OnCloseOnSwitchChanged = (event: React.MouseEvent<HTMLElement, MouseEvent>, checked?: boolean | undefined) => {
-    if (checked != undefined) (settings as ISettings)[this.props.Platform.name].closeOnSwitch = checked;
+    if (checked != undefined) (settings as ISettings).platforms[this.props.Platform.name].closeOnSwitch = checked;
     RelaySettingsState();
   };
 
@@ -129,14 +129,14 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
           src={this.state.Client.config.logo != undefined ? this.state.Client.config.logo : this.props.Platform.icon} />
 
         <Toggle
-          defaultChecked={(settings as ISettings)[this.props.Platform.name].isEnabled}
+          defaultChecked={(settings as ISettings).platforms[this.props.Platform.name].isEnabled}
           label={"Auto launch with " + this.state.Client.name}
           inlineLabel={true}
           onChange={this.OnEnabledChanged}
         />
 
         <Toggle
-          defaultChecked={(settings as ISettings)[this.props.Platform.name].closeOnSwitch}
+          defaultChecked={(settings as ISettings).platforms[this.props.Platform.name].closeOnSwitch}
           label="Close window on switch"
           inlineLabel={true}
           onChange={this.OnCloseOnSwitchChanged}

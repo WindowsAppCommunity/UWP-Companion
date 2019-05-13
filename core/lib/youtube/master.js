@@ -13,7 +13,7 @@ function shouldCloseOnSwitch(url) {
 
 function isYoutube(url) {
     if (typeof url == 'string') {
-        let match = url.match(/^.*(youtube\.[a-z]{0,4})|^.*(youtu\.be)/);
+        let match = url.match(/^http.*(youtube\.[a-z]{0,4})|^.*(youtu\.be)/);
         return (match && match[1]) ? true : false;
     } else console.error('Incorrect data recieved while checking domain');
 }
