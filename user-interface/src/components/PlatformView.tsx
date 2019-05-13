@@ -22,10 +22,11 @@ interface IPlatformState {
 }
 
 interface IPlatformView {
-  Platform: IPlatform,
-  DefaultClient: IClient,
-  OnClientChanged?: Function,
-  OnLoaded?: Function
+  Platform: IPlatform;
+  DefaultClient: IClient;
+  OnClientChanged?: Function;
+  OnLoaded?: Function;
+  isSettingsView?: boolean;
 }
 
 
@@ -132,7 +133,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
             }
           }}
           width={175}
-          height={175}
+          height={(this.props.isSettingsView == true ? 225 : 175)}
           imageFit={ImageFit.centerContain}
           src={this.state.Client.config.logo != undefined ? this.state.Client.config.logo : this.props.Platform.icon} />
 
@@ -142,10 +143,12 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
               margin: "auto"
             }
           }}
+
           onClick={this.LaunchClient} iconProps={{ iconName: "OpenInNewWindow" }} style={{
             height: "40px",
             width: "250px",
-            margin: "10px"
+            margin: "10px",
+            display: (this.props.isSettingsView == true ? "none" : "block")
           }}>
           Launch {this.props.DefaultClient.name}
         </PrimaryButton>

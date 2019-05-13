@@ -4,7 +4,7 @@ import { List } from 'office-ui-fabric-react/lib/List';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { mergeStyleSets, getTheme, DefaultFontStyles, FontSizes, getFocusStyle } from 'office-ui-fabric-react/lib/Styling';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
-import { IPlatform ,ISettings } from '../../../../core/typings';
+import { IPlatform, ISettings } from '../../../../core/typings';
 import { Panel, PanelType } from 'office-ui-fabric-react';
 import { PlatformView } from '../PlatformView';
 import { settings } from '../../../../core/helpers/settings';
@@ -109,7 +109,8 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
                             isOpen={this.state.SelectedPlatform.PanelIsOpen}
                             type={PanelType.smallFluid}
                             headerText={this.state.SelectedPlatform.Platform.name}>
-                            <PlatformView Platform={this.state.SelectedPlatform.Platform} DefaultClient={this.state.SelectedPlatform.Platform.clients[(settings as ISettings).platforms[this.state.SelectedPlatform.Platform.name].prefferedApp]} />
+
+                            <PlatformView isSettingsView={true} Platform={this.state.SelectedPlatform.Platform} DefaultClient={this.state.SelectedPlatform.Platform.clients[(settings as ISettings).platforms[this.state.SelectedPlatform.Platform.name].prefferedApp]} />
                         </Panel>;
                     }
                 })()
