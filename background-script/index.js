@@ -1,4 +1,4 @@
-import { checkLib } from '../core/libs.js';
+import { getProtocolUri } from '../core/libs.js';
 import { setSettings, getSettings } from '../core/helpers/settings.js';
 import { debounce } from '../core/helpers/misc.js';
 import { YouTube } from '../core/lib/youtube/master.js';
@@ -16,17 +16,14 @@ chrome.webRequest.onBeforeRequest.addListener(
     {
         urls: ["<all_urls>"],
         tabId: currentTabId
-    },
-    ["blocking"]
+    }
 );
 
-function requestCatcher(requestDetails) {    
-    let protocolUrl = checkLib(requestDetails.url, requestDetails.tabId, false);
+function requestCatcher(requestDetails) {
+    let protocolUrl = getProtocolUri(requestDetails.url, requestDetails.tabId, false);
 
     if (protocolUrl != undefined) {
-        return {
-            redirectUrl: protocolUrl
-        };
+        document.getElementsByTagName("iframe")[0].src = protocolUrl;
     }
 }
 

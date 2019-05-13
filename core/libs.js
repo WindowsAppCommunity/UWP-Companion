@@ -33,7 +33,7 @@ export function getPrefferedClient(platformName) {
     return client;
 }
 
-export function checkLib(uri, tabId, bypass) {
+export function getProtocolUri(uri, tabId, bypass) {
     let platformName = getPlatformName(uri, bypass);
     if (platformName == undefined) return;
 
