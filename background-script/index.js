@@ -50,5 +50,14 @@ chrome.runtime.onMessage.addListener(function(request) {
     if (request.pauseVideo != undefined) {
         YouTube.pauseVideo(request.tabId);
     }
+
+    if (request.launch) {
+        chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+            if (!tabs || !tabs[0]) return;
+
+            let protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, true);
+            document.getElementsByTagName("iframe")[0].src = protocolUrl;
+        });
+    }
 });
 

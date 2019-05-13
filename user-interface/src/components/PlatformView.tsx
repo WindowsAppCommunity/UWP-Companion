@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack } from 'office-ui-fabric-react';
+import { Stack, CompoundButton, Button, PrimaryButton } from 'office-ui-fabric-react';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { ResponsiveMode } from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
@@ -70,6 +70,8 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
     };
 
     this.OnClientSelected = this.OnClientSelected.bind(this);
+    this.LaunchClient = this.LaunchClient.bind(this);
+
     PopulateClientsDropdown(this.props.Platform.name, true);
   }
 
@@ -103,6 +105,12 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
     RelaySettingsState();
   };
 
+  LaunchClient = () => {
+    chrome.runtime.sendMessage({
+      launch: this.props.DefaultClient
+    });
+  };
+
   render() {
     return (
       <Stack
@@ -123,10 +131,24 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
               margin: "auto"
             }
           }}
-          width={200}
-          height={200}
+          width={175}
+          height={175}
           imageFit={ImageFit.centerContain}
           src={this.state.Client.config.logo != undefined ? this.state.Client.config.logo : this.props.Platform.icon} />
+
+        <PrimaryButton
+          styles={{
+            root: {
+              margin: "auto"
+            }
+          }}
+          onClick={this.LaunchClient} iconProps={{ iconName: "OpenInNewWindow" }} style={{
+            height: "40px",
+            width: "250px",
+            margin: "10px"
+          }}>
+          Launch {this.props.DefaultClient.name}
+        </PrimaryButton>
 
         <Toggle
           defaultChecked={(settings as ISettings).platforms[this.props.Platform.name].isEnabled}

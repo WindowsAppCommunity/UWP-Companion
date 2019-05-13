@@ -44,8 +44,8 @@ export class App extends React.Component<IAppProps, {}> {
         return (
             <Stack styles={{
                 root: {
-                    width: '320px',
-                    height: '400px',
+                    width: '330px',
+                    height: '440px',
                     margin: '0px',
                     padding: '0px',
                     textAlign: 'center',
