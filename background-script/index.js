@@ -1,5 +1,5 @@
-import libs, { checkLib } from '../core/libs.js';
-import { setSettings, getSettings, settings } from '../core/helpers/settings.js';
+import { checkLib } from '../core/libs.js';
+import { setSettings, getSettings } from '../core/helpers/settings.js';
 import { debounce } from '../core/helpers/misc.js';
 import { YouTube } from '../core/lib/youtube/master.js';
 

@@ -10,28 +10,43 @@ const platforms = {
 };
 
 import { settings } from './helpers/settings.js';
+import { platform } from 'os';
 
-export function checkLib(uri, tabId, bypass) {
+export function getPlatformName(uri, bypass) {
     let platformName;
+
     for (const name of Object.keys(platforms)) {
         if ((settings.platforms[name].isEnabled || bypass) && platforms[name].baseUrlMatch(uri)) {
             platformName = name;
         }
     }
+    return platformName;
+}
+
+export function getPrefferedClient(platformName) {
+    let client;
+    Object.entries(platforms[platformName].clients).forEach(([clientName, clientData]) => {
+        if (clientName == settings.platforms[platformName].prefferedApp) {
+            client = clientData;
+        }
+    });
+
+    return client;
+}
+
+export function checkLib(uri, tabId, bypass) {
+    let platformName = getPlatformName(uri, bypass);
     if (platformName == undefined) return;
 
     // perform URL parsing for that platform's preffered client
-    let protocol;
-    Object.entries(platforms[platformName].clients).forEach(([clientName, client]) => {
-        if (clientName == settings.platforms[platformName].prefferedApp) {
-            protocol = client.parseUrl(uri, tabId);
-            setTimeout(() => {
-                if (settings.platforms[platformName].closeOnSwitch && platforms[platformName].shouldCloseOnSwitch(uri) && protocol) {
-                    chrome.tabs.remove(tabId);
-                }
-            }, 500);
+    let client = getPrefferedClient(platformName);
+    let protocol = client.parseUrl(uri, tabId);
+
+    setTimeout(() => {
+        if (settings.platforms[platformName].closeOnSwitch && platforms[platformName].shouldCloseOnSwitch(uri) && protocol) {
+            chrome.tabs.remove(tabId);
         }
-    });
+    }, 500);
     return protocol;
 }
 
