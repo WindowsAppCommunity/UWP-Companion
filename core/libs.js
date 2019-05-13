@@ -2,11 +2,13 @@
 import { YouTube } from './lib/youtube/master.js';
 import { Reddit } from './lib/reddit/master.js';
 import { Spotify } from './lib/spotify/master.js';
+import { Discord } from './lib/discord/master.js';
 
 const platforms = {
     YouTube: YouTube,
     Reddit: Reddit,
-    Spotify: Spotify
+    Spotify: Spotify,
+    Discord: Discord
 };
 
 import { settings } from './helpers/settings.js';
@@ -44,7 +46,7 @@ export function getProtocolUri(uri, tabId, bypass) {
     if (client.postLaunch != undefined) {
         client.postLaunch(tabId);
     }
-    
+
     setTimeout(() => {
         if (settings.platforms[platformName].closeOnSwitch && platforms[platformName].shouldCloseOnSwitch(uri) && protocol) {
             chrome.tabs.remove(tabId);

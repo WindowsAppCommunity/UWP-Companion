@@ -11,7 +11,7 @@ function shouldCloseOnSwitch(url) {
 
 function isDiscord(url) {
     if (typeof url == 'string') {
-        let match = url.match(/^http.*(discordapp\.[a-z]{0,4})/);
+        let match = url.match(/^http.*discordapp\..[a-z]{0,4}?(?=\/)(.+)/);
         return (match && match[1]) ? true : false;
     } else console.error('Incorrect data recieved while checking domain');
 }
@@ -20,6 +20,5 @@ export const Discord = {
     icon: "https://upload.wikimedia.org/wikipedia/fr/thumb/0/05/Discord.svg/220px-Discord.svg.png",
     baseUrlMatch: isDiscord,
     shouldCloseOnSwitch: shouldCloseOnSwitch,
-    pauseVideo: pauseVideo,
     clients: clients
 };

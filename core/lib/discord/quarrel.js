@@ -1,12 +1,15 @@
 import { settings } from '../../helpers/settings.js';
-import DiscordParsers from './parsing.js';
 
 function urlToProtocolRaw(url) {
-   
+    "discordapp\.[a-z]{1,4}?(?=\/)(.+)"
 }
 
 function getProtocolFromUrl(url, tabId) {
-    return urlToProtocolRaw(url);
+    let match = url.match(/^http.*discordapp\..[a-z]{0,4}?(?=\/)(.+)/);
+    if (match && match[1]) {
+        return "quarrel://" + match[1];
+    }
+    return;
 }
 
 export default {
