@@ -6,7 +6,7 @@ let clients = {
 
 export function isReddit(url) {
     if (typeof url == 'string') {
-        let match = url.match(/^.*(reddit\.[a-z]{0,4})/);
+        let match = url.match(/^http.*(reddit\.[a-z]{0,4})/);
         return (match && match[1]) ? true : false;
     } else console.error('Incorrect data recieved while checking domain');
 }
