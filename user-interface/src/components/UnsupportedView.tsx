@@ -15,13 +15,12 @@ export class UnsupportedView extends React.Component<IUnsupportedView> {
                 styles={{
                     root: {
                         margin: '0 auto',
-                        height: '300px',
                         textAlign: 'center',
                         backgroundColor: this.props.backgroundColor
                     }
                 }}>
                 <Stack verticalAlign="center" gap={15}>
-                    <Text style={{ fontSize: 30 }}>
+                    <Text style={{ fontSize: 50  }}>
                         <p>
                             🤨
                         </p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Customizer, Stack, Text, FontWeights, ISettings, DefaultButton, Link } from 'office-ui-fabric-react';
+import { Customizer, Stack, Text, FontWeights, ISettings, DefaultButton, Link, ActionButton, IIconStyleProps, IIconStyles } from 'office-ui-fabric-react';
 import { GetPlatformNameFromUrl } from '../../core/helpers/misc.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +7,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 import { MainView } from './components/MainView';
 import { SettingsView } from './components/SettingsView';
+import { settings } from 'cluster';
 
 enum Views { SettingsView, MainView };
 let CurrentView: Views = Views.MainView;
@@ -14,6 +15,12 @@ let CurrentView: Views = Views.MainView;
 export interface IAppProps {
     backgroundColor: string;
     url?: string;
+}
+
+const SettingsStyle: Partial<IIconStyles> = {
+    root: {
+        fontSize: "20px"
+    }
 }
 
 export class App extends React.Component<IAppProps, {}> {
@@ -41,11 +48,12 @@ export class App extends React.Component<IAppProps, {}> {
         this.forceUpdate();
     }
     render() {
+
         return (
             <Stack styles={{
                 root: {
                     width: '330px',
-                    height: '440px',
+                    height: "440px",
                     margin: '0px',
                     padding: '0px',
                     textAlign: 'center',
@@ -53,10 +61,14 @@ export class App extends React.Component<IAppProps, {}> {
                 }
             }}>
                 <Link onClick={this.ToggleSettings} style={{
-                    position: "absolute", right: "10px", top: "25px", color: "black"
+                    position: "absolute", right: "10px", top: "15px", color: "black"
                 }}>
                     <div>
-                        <FontAwesomeIcon className="settings-cog" icon={faCog} style={{ fontSize: 23 }} />
+                        <ActionButton iconProps={{
+                            iconName: "Settings",
+                            styles: SettingsStyle
+                        }}
+                        />
                     </div>
                 </Link>
 

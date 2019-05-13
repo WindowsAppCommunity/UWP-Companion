@@ -136,7 +136,7 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
             SelectedPlatform: {
                 PanelIsOpen: false
             }
-        })
+        });
     }
     private _onFilterChanged(newValue: any) {
         if (newValue == "") {
