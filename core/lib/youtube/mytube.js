@@ -70,7 +70,6 @@ function pauseVideo(tabId) {
                 function recursiveVideoCheck() {
                     document.querySelectorAll('video').forEach(vid => {
                         if(vid.currentTime > 0 && !vid.paused) {
-                            consonle
                            vid.pause();
                         } else {
                             if(timePassed < 5000) {

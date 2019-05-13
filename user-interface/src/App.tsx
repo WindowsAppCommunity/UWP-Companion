@@ -2,9 +2,6 @@ import React from 'react';
 import { Customizer, Stack, Text, FontWeights, ISettings, DefaultButton, Link, ActionButton, IIconStyleProps, IIconStyles } from 'office-ui-fabric-react';
 import { GetPlatformNameFromUrl } from '../../core/helpers/misc.js';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
-
 import { MainView } from './components/MainView';
 import { SettingsView } from './components/SettingsView';
 import { settings } from 'cluster';
