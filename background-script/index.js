@@ -56,6 +56,7 @@ chrome.runtime.onMessage.addListener(function(request) {
             if (!tabs || !tabs[0]) return;
 
             let protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, true);
+            console.log(tabs, protocolUrl);
             document.getElementsByTagName("iframe")[0].src = protocolUrl;
         });
     }

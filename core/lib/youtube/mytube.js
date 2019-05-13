@@ -1,5 +1,5 @@
 import { settings } from '../../helpers/settings.js';
-import { YTParser } from './parsing.js';
+import YTParser from './parsing.js';
 
 function urlToProtocolRaw(url) {
     if (YTParser.hasPlaylist(url) !== null) { // Is a playlist
@@ -26,8 +26,10 @@ function urlToProtocolRaw(url) {
     } else if (YTParser.hasChannel(url) !== null) { // Is a channel
         console.info('Channel detected. Will use protocol: ');
         return `rykentube:Channel?ID=${YTParser.hasChannel(url)}`;
+    } else if(YTParser.isYoutube(url)) {
+        return "rykentube:"
     } else {
-        return undefined;
+        return undefined
     }
 }
 

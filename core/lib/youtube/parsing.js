@@ -1,3 +1,9 @@
+function isYoutube(url) {
+    if (typeof url == 'string') {
+        let match = url.match(/^http.*(youtube\.[a-z]{0,4})|^.*(youtu\.be)/);
+        return (match && match[1]) ? true : false;
+    } else console.error('Incorrect data recieved while checking domain');
+}
 function hasVideo(url) {
     if (typeof url == 'string') {
         let match = url.match(/^.*(?:[&|?]v=)([a-zA-Z0-9-_]{11})/);
@@ -35,7 +41,8 @@ function toHHMMSS(secs) {
     return hours + ':' + minutes + ':' + seconds;
 }
 
-export const YTParser = {
+export default YTParser = {
+    isYoutube: isYoutube,
     hasVideo: hasVideo,
     hasPlaylist: hasPlaylist,
     hasTimestamp: hasTimestamp,
