@@ -43,7 +43,7 @@ export function getProtocolUri(uri, tabId, bypass) {
     let client = getPrefferedClient(platformName);
     let protocol = client.parseUrl(uri, tabId);
 
-    if (client.postLaunch != undefined) {
+    if (client.postLaunch != undefined && protocol) {
         client.postLaunch(tabId);
     }
 
