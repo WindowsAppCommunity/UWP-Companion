@@ -4,6 +4,13 @@ function isYoutube(url) {
         return (match && match[1]) ? true : false;
     } else console.error('Incorrect data recieved while checking domain');
 }
+function isHomepage(url) {
+    if (typeof url == 'string') {
+        let match = url.match(/^(?:^http.*youtube\.[a-z]{0,4}|^.*youtu\.be)\/(.+)/);
+        // If it matches anything after "youtube.com/", it isn't the homepage 
+        return (match && match[1]) ? false : true;
+    } else console.error('Incorrect data recieved while checking homepage');
+}
 function hasVideo(url) {
     if (typeof url == 'string') {
         let match = url.match(/^.*(?:[&|?]v=)([a-zA-Z0-9-_]{11})/);
@@ -47,5 +54,6 @@ export default {
     hasPlaylist: hasPlaylist,
     hasTimestamp: hasTimestamp,
     hasChannel: hasChannel,
+    isHomepage: isHomepage,
     toHHMMSS: toHHMMSS
 };

@@ -26,11 +26,10 @@ function urlToProtocolRaw(url) {
     } else if (YTParser.hasChannel(url) !== null) { // Is a channel
         console.info('Channel detected. Will use protocol: ');
         return `rykentube:Channel?ID=${YTParser.hasChannel(url)}`;
-    } else if(YTParser.isYoutube(url)) {
+    } else if (YTParser.isHomepage(url)) {
         return "rykentube:"
-    } else {
-        return undefined
     }
+    return;
 }
 
 function getProtocolFromUrl(url, tabId) {
@@ -69,6 +68,7 @@ function pauseVideo(tabId) {
                 
                 function recursiveVideoCheck() {
                     document.querySelectorAll('video').forEach(vid => {
+                        console.log(vid);
                         if(vid.currentTime > 0 && !vid.paused) {
                            vid.pause();
                         } else {
