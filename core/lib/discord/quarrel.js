@@ -1,13 +1,8 @@
-import { settings } from '../../helpers/settings.js';
-
-function urlToProtocolRaw(url) {
-    "discordapp\.[a-z]{1,4}?(?=\/)(.+)"
-}
-
 function getProtocolFromUrl(url, tabId) {
-    let match = url.match(/^http.*discordapp\..[a-z]{0,4}?(?=\/)(.+)/);
+    let match = url.match(/^http.*discordapp\..[a-z]{0,4}?(?=\/channels)(.+)/);
     if (match && match[1]) {
-        return "quarrel://" + match[1];
+        console.log(match, "quarrel:/" + match[1]);
+        return "quarrel:/" + match[1];
     }
     return;
 }
