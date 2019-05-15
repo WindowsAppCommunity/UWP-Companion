@@ -17,6 +17,8 @@ With cooperation from many third party UWP developers, a touch of [Fabric UI](ht
  - Spotify
     - Spotimo
     - Xpotify
+ - Mixer
+   - Mixplay
 
 # Contributing
 
