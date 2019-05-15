@@ -30,7 +30,6 @@ export function debounce(func, wait, immediate) {
 export function containsBlacklistedKeyword(toCheck, blacklist) {
     for (const keyword of blacklist) {
         if (toCheck.includes(keyword)) {
-            console.log("Found blacklisted keyword: " + keyword);
             return true;
         }
     }
