@@ -3,12 +3,14 @@ import { YouTube } from './lib/youtube/master.js';
 import { Reddit } from './lib/reddit/master.js';
 import { Spotify } from './lib/spotify/master.js';
 import { Discord } from './lib/discord/master.js';
+import Mixer from './lib/mixer/master.js';
 
 const platforms = {
     YouTube: YouTube,
     Reddit: Reddit,
     Spotify: Spotify,
-    Discord: Discord
+    Discord: Discord,
+    Mixer: Mixer
 };
 
 import { settings } from './helpers/settings.js';
