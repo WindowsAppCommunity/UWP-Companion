@@ -46,16 +46,15 @@ const classNames = mergeStyleSets({
     itemImage: {
         flexShrink: 0
     },
-    itemContent: {
-        marginLeft: 10,
-        overflow: 'hidden',
-        flexGrow: 1
-    },
     itemName: [
         DefaultFontStyles.xLarge,
         {
-            whiteSpace: 'nowrap',
+            marginLeft: 10,
+            marginTop: "auto",
+            marginBottom: "auto",
             overflow: 'hidden',
+            flexGrow: 1,
+            whiteSpace: 'nowrap',
             textOverflow: 'ellipsis'
         }
     ],
@@ -182,9 +181,7 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
                     height={50}
                     imageFit={ImageFit.centerContain}
                 />
-                <div className={classNames.itemContent}>
-                    <div className={classNames.itemName}>{item != undefined ? item.name : ""}</div>
-                </div>
+                <div className={classNames.itemName}>{item != undefined ? item.name : ""}</div>
             </div>
         );
     }
