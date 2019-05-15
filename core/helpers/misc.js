@@ -26,3 +26,13 @@ export function debounce(func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 };
+
+export function containsBlacklistedKeyword(toCheck, blacklist) {
+    for (const keyword of blacklist) {
+        if (toCheck.includes(keyword)) {
+            console.log("Found blacklisted keyword: " + keyword);
+            return true;
+        }
+    }
+    return false;
+}
