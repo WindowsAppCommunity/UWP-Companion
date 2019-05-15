@@ -14,8 +14,8 @@
         "storage"
     ],
     "icons": {
-        "48": "assets/logos/Square48x48LogoLight.png",
-        "128": "assets/logos/Square128x128LogoLight.png"
+        "48": "assets/logos/BrowserAction.png",
+        "128": "assets/logos/BrowserActionLarge.png"
     },
     "browser_action": {
         "default_icon": {
