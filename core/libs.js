@@ -50,7 +50,7 @@ export function getProtocolUri(uri, tabId, bypass) {
     }
 
     setTimeout(() => {
-        if (settings.platforms[platformName].closeOnSwitch && platforms[platformName].shouldCloseOnSwitch(uri) && protocol) {
+        if (settings.platforms[platformName].closeOnSwitch && platforms[platformName].shouldCloseOnSwitch && platforms[platformName].shouldCloseOnSwitch(uri) && protocol) {
             chrome.tabs.remove(tabId);
         }
     }, 500);
