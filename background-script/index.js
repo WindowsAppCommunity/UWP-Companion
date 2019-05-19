@@ -1,6 +1,6 @@
 import { getProtocolUri } from '../core/libs.js';
 import { setSettings, getSettings } from '../core/helpers/settings.js';
-import { debounce } from '../core/helpers/misc.js';
+import { debounce, calculateStringSimilarity } from '../core/helpers/misc.js';
 import { YouTube } from '../core/lib/youtube/master.js';
 
 if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
@@ -31,7 +31,8 @@ function launch(protocolUrl, requestDetails) {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
         if (!tabs || !tabs[0]) return;
 
-        if (tabs[0].url == requestDetails.url) {
+        console.log("Current tab URL: " + tabs[0].url, "Request URL: " + requestDetails.url, "Similarity: " + calculateStringSimilarity(tabs[0].url, requestDetails.url));
+        if (calculateStringSimilarity(tabs[0].url, requestDetails.url) > 0.55) {
             document.getElementsByTagName("iframe")[0].src = protocolUrl;
         }
     });
