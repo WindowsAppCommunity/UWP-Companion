@@ -20,6 +20,11 @@ With cooperation from many third party UWP developers, a touch of [Fabric UI](ht
  - Mixer
    - Mixplay
 
+
+## Known issues:
+
+ - There is a bug in the Microsoft Edge preview builds and Google Chrome that cause a crash when opening certain apps with the UWP Companion. This bug does not seem present in Opera.
+ 
 # Contributing
 
 ## Contributing is easy!
