@@ -10,28 +10,41 @@ function shouldCloseOnSwitch(url) {
     return (YTParser.isYoutube(url) ? true : false);
 }
 
-function pauseVideo(tabId) {
+export function pauseVideo(tabId) {
     if (tabId == undefined || tabId < 1) return;
-    chrome.tabs.executeScript(tabId, {
-        // Confirm that the videos are playing and loaded before trying to pause it
-        code: `
-                function recursiveVideoCheck() {
-                    document.querySelectorAll('video').forEach(vid => {
-                        if(vid.currentTime > 0 && !vid.paused) {
-                           vid.pause();
-                        } else {
-                            setTimeout(()=>{
-                                recursiveVideoCheck();
-                            }, 200);
-                        }
-                    });
+    let pauseRepeater = setInterval(() => {
+        chrome.tabs.executeScript(tabId, {
+            code: `
+            var vids = document.querySelectorAll('video');
+
+            for(let vid of vids) {
+                    vid.pause();
+                    if(vid.paused) {
+                        "success";
+                        continue;
+                    }
+                    "failed";
                 }
-                window.addEventListener("load", function(event) { 
-                    recursiveVideoCheck(); // For when it fires before the page is loaded
-                });
-                recursiveVideoCheck(); // For when it fires after the page is loaded
-                `
-    });
+            `
+        }, results => {
+            if (results) {
+                for (let result of results) {
+                    // If anything failed, return. It will be tried again
+                    if (result == "failed" || result == null) {
+                        return;
+                    }
+                }
+                // If this point is reached without failures, stop trying to pause the videos
+                clearInterval(pauseRepeater);
+            }
+        });
+    }, 200);
+
+    // If a user has _really_ slow internet, it could take this long. Any longer is probably an indication of a glitch and the repeating code needs to be stopped
+    setTimeout(() => {
+        clearInterval(pauseRepeater);
+    }, 15000);
+
 }
 
 export const YouTube = {
@@ -39,6 +52,5 @@ export const YouTube = {
     icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_(2017).svg/1280px-YouTube_full-color_icon_(2017).svg.png",
     baseUrlMatch: YTParser.isYoutube,
     shouldCloseOnSwitch: shouldCloseOnSwitch,
-    pauseVideo: pauseVideo,
     clients: clients
 };

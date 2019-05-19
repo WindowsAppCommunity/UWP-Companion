@@ -1,5 +1,6 @@
 import { settings } from '../../helpers/settings.js';
 import YTParser from './parsing.js';
+import { pauseVideo } from './master.js';
 
 function urlToProtocolRaw(url) {
     if (YTParser.isYoutube(url)) {
@@ -30,7 +31,7 @@ function urlToProtocolRaw(url) {
             return `rykentube:Channel?ID=${YTParser.hasChannel(url)}`;
         }
     }
-    
+
     if (YTParser.isHomepage(url)) {
         return "rykentube:"
     }
@@ -58,32 +59,3 @@ export default {
         color: "#303030"
     }
 };
-
-function pauseVideo(tabId) {
-    chrome.tabs.executeScript(tabId, {
-        // Confirm that the videos are playing and loaded before trying to pause it
-        code: `
-                let timePassed = 0;
-                
-                function recursiveVideoCheck() {
-                    document.querySelectorAll('video').forEach(vid => {
-                        console.log(vid);
-                        if(vid.currentTime > 0 && !vid.paused) {
-                           vid.pause();
-                        } else {
-                            if(timePassed < 5000) {
-                                setTimeout(()=>{
-                                    timePassed += 200;
-                                    recursiveVideoCheck();
-                                }, 200);
-                            }
-                        }
-                    });
-                }
-                window.addEventListener("load", function(event) { 
-                    recursiveVideoCheck(); // For when it fires before the page is loaded
-                });
-                recursiveVideoCheck();
-                `
-    });
-}

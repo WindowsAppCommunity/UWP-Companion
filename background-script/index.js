@@ -1,7 +1,7 @@
 import { getProtocolUri } from '../core/libs.js';
 import { setSettings, getSettings } from '../core/helpers/settings.js';
 import { debounce, calculateStringSimilarity } from '../core/helpers/misc.js';
-import { YouTube } from '../core/lib/youtube/master.js';
+import { pauseVideo } from '../core/lib/youtube/master.js';
 
 if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
     // Replacing chrome.tabs with browser.tabs for Firefox / other browsers that may need it
@@ -49,7 +49,7 @@ chrome.runtime.onMessage.addListener(function(request) {
     }
 
     if (request.pauseVideo != undefined) {
-        YouTube.pauseVideo(request.tabId);
+        pauseVideo(request.tabId);
     }
 
     if (request.launch) {
