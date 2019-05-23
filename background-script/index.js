@@ -26,15 +26,25 @@ function requestCatcher(requestDetails) {
     if (protocolUrl != undefined) {
         launch(false, protocolUrl, requestDetails.url);
     }
+}
 
-    let platformName = getPlatformName(requestDetails.url, true);
-    if (!platformName) return;
-    let client = getPrefferedClient(platformName);
-    if (!client || !client.config || !client.config.icon) return;
+function setupBrowserActionIcon(url, tabId) {
+    let iconPath;
+
+    let platformName = getPlatformName(url, true);
+
+    if (platformName) {
+        let client = getPrefferedClient(platformName);
+        if (client && client.config && client.config.icon) {
+            iconPath = client.config.icon;
+        }
+    } else {
+        iconPath = "../assets/logos/BrowserAction.png";
+    }
 
     chrome.browserAction.setIcon({
-        path: client.config.icon,
-        tabId: requestDetails.tabId
+        path: iconPath,
+        tabId: tabId
     });
 }
 
@@ -92,6 +102,15 @@ function injectLaunchScript(protocolUrl, tabId) {
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
     currentTabId = activeInfo.tabId;
+
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+        if (!tabs || !tabs[0]) return;
+        setupBrowserActionIcon(tabs[0].url, tabs[0].id);
+    });
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (tabId && changeInfo.url) setupBrowserActionIcon(changeInfo.url, tabId);
 });
 
 chrome.runtime.onMessage.addListener(function(request) {
