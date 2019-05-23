@@ -56,6 +56,7 @@ export default {
     postLaunch: postLaunch,
     config: {
         logo: "https://arlo.site/projects/community/logos/light-theme/myTube.png",
+        icon: "https://arlo.site/projects/community/logos/icons/myTube.png",
         color: "#303030"
     }
 };

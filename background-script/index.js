@@ -1,4 +1,4 @@
-import { getProtocolUri } from '../core/libs.js';
+import { getProtocolUri, getPlatformName, getPrefferedClient } from '../core/libs.js';
 import { setSettings, getSettings } from '../core/helpers/settings.js';
 import { debounce, calculateStringSimilarity } from '../core/helpers/misc.js';
 import { pauseVideo } from '../core/lib/youtube/master.js';
@@ -26,6 +26,16 @@ function requestCatcher(requestDetails) {
     if (protocolUrl != undefined) {
         launch(protocolUrl, requestDetails.url);
     }
+
+    let platformName = getPlatformName(requestDetails.url, true);
+    if (!platformName) return;
+    let client = getPrefferedClient(platformName);
+    if (!client || !client.config || !client.config.icon) return;
+
+    chrome.browserAction.setIcon({
+        path: client.config.icon,
+        tabId: requestDetails.tabId
+    });
 }
 
 function launch(protocolUrl, originalRequestUrl) {

@@ -1,6 +1,7 @@
 export default {
     config: {
         logo: "https://arlo.site/projects/community/logos/Legere.png",
+        icon: "https://arlo.site/projects/community/logos/icons/Legere.png",
         color: "#FF4500"
     },
     name: "Legere",

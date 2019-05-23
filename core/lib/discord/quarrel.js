@@ -12,6 +12,7 @@ export default {
     parseUrl: getProtocolFromUrl,
     config: {
         logo: "https://arlo.site/projects/community/logos/Quarrel.png",
+        icon: "https://arlo.site/projects/community/logos/icons/Quarrel.png",
         color: "#7289DA"
     }
 };
