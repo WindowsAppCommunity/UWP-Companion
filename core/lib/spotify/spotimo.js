@@ -13,8 +13,8 @@ function getProtocolFromUrl(url) {
 
 export default {
     config: {
-        logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Spotimo.png",
-        icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Spotimo.png",
+        logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Spotimo.png",
+        icon: "https://arlo.site/projects/UWPCompanion/icons/clients/Spotimo.png",
         color: "#FF4500"
     },
     name: "Spotimo",
