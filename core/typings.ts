@@ -12,11 +12,13 @@ export interface IClientConfig {
     color: string;
     // Technically a logo is not "required" as it will fall back to the platform logo, but it is HIGHLY RECOMMENDED that you add one
     logo?: string;
+    // The icon is displayed in the extension bar when the current website is supported 
+    icon?: string;
 }
 
 export interface IPlatform {
     name: string,
-    icon: string,
+    logo: string,
     baseUrlMatch: Function,
     shouldCloseOnSwitch?: Function,
     clients: {

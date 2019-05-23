@@ -6,7 +6,7 @@ const clients = {
 
 export default {
     name: "Mixer",
-    icon: "https://github.com/mixer/branding-kit/raw/master/png/MixerLogo_Light.png",
+    logo: "https://github.com/mixer/branding-kit/raw/master/png/MixerLogo_Light.png",
     baseUrlMatch: function(url) {
         if (typeof url == 'string') {
             let match = url.match(/^http.*mixer\..[a-z]{0,4}?(?=\/)(.+)/);
