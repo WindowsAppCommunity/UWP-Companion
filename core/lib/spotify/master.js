@@ -13,7 +13,8 @@ export function isSpotify(url) {
 
 export const Spotify = {
     name: "Spotify",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png",
+    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Spotify.png",
+    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Spotify.png",
     baseUrlMatch: isSpotify,
     clients: clients
 };

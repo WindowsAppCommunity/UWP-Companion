@@ -1,4 +1,4 @@
-import { getProtocolUri, getPlatformName, getPrefferedClient } from '../core/libs.js';
+import libs, { getProtocolUri, getPlatformName, getPrefferedClient } from '../core/libs.js';
 import { setSettings, getSettings } from '../core/helpers/settings.js';
 import { debounce, calculateStringSimilarity } from '../core/helpers/misc.js';
 import { pauseVideo } from '../core/lib/youtube/master.js';
@@ -35,10 +35,16 @@ function setupBrowserActionIcon(url, tabId) {
 
     if (platformName) {
         let client = getPrefferedClient(platformName);
+
         if (client && client.config && client.config.icon) {
             iconPath = client.config.icon;
+        } else if (client && client.config) {
+            // Fall back to platform icon if there's still a supported client
+            let platform = libs.platforms[platformName];
+            if (platform.icon) iconPath = platform.icon;
         }
     } else {
+        // Not a supported platform, use default icon
         iconPath = "../assets/logos/BrowserAction.png";
     }
 

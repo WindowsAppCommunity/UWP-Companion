@@ -49,7 +49,8 @@ export function pauseVideo(tabId) {
 
 export const YouTube = {
     name: "YouTube",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_(2017).svg/1280px-YouTube_full-color_icon_(2017).svg.png",
+    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/YouTube.png",
+    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/YouTube.png",
     baseUrlMatch: YTParser.isYoutube,
     shouldCloseOnSwitch: shouldCloseOnSwitch,
     clients: clients

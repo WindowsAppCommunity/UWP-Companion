@@ -15,7 +15,8 @@ export function isReddit(url) {
 
 export const Reddit = {
     name: "Reddit",
-    logo: "https://www.exastax.com/wp-content/uploads/2017/10/Reddit_Logo.png",
+    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Reddit.png",
+    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Reddit.png",
     baseUrlMatch: isReddit,
     clients: clients
 };

@@ -17,7 +17,8 @@ function isDiscord(url) {
 }
 export const Discord = {
     name: "Discord",
-    logo: "https://upload.wikimedia.org/wikipedia/fr/thumb/0/05/Discord.svg/220px-Discord.svg.png",
+    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Discord.png",
+    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Discord.png",
     baseUrlMatch: isDiscord,
     shouldCloseOnSwitch: shouldCloseOnSwitch,
     clients: clients
