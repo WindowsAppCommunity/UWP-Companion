@@ -11,8 +11,8 @@ export default {
     name: "Quarrel",
     parseUrl: getProtocolFromUrl,
     config: {
-        logo: "https://arlo.site/projects/community/logos/Quarrel.png",
-        icon: "https://arlo.site/projects/community/logos/icons/Quarrel.png",
+        logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Quarrel.png",
+        icon: "https://arlo.site/projects/UWPCompanion/icons/clients/Quarrel.png",
         color: "#7289DA"
     }
 };

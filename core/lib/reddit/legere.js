@@ -1,7 +1,7 @@
 export default {
     config: {
-        logo: "https://arlo.site/projects/community/logos/Legere.png",
-        icon: "https://arlo.site/projects/community/logos/icons/Legere.png",
+        logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Legere.png",
+        icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Legere.png",
         color: "#FF4500"
     },
     name: "Legere",

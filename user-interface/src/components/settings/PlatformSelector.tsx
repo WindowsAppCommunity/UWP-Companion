@@ -176,7 +176,7 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
             <div className={classNames.itemCell} data-platform={JSON.stringify(item)} data-is-focusable={true} onMouseUp={this.onPlatformClicked}>
                 <Image
                     className={classNames.itemImage}
-                    src={isScrolling || item == undefined ? undefined : item.icon}
+                    src={isScrolling || item == undefined ? undefined : item.logo}
                     width={50}
                     height={50}
                     imageFit={ImageFit.centerContain}

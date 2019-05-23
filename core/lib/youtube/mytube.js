@@ -55,8 +55,8 @@ export default {
     parseUrl: getProtocolFromUrl,
     postLaunch: postLaunch,
     config: {
-        logo: "https://arlo.site/projects/community/logos/light-theme/myTube.png",
-        icon: "https://arlo.site/projects/community/logos/icons/myTube.png",
+        logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/myTube.png",
+        icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/myTube.png",
         color: "#303030"
     }
 };
