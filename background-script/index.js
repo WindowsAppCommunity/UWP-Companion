@@ -24,7 +24,7 @@ function requestCatcher(requestDetails) {
     let protocolUrl = getProtocolUri(requestDetails.url, requestDetails.tabId, false);
 
     if (protocolUrl != undefined) {
-        launch(protocolUrl, requestDetails.url);
+        launch(false, protocolUrl, requestDetails.url);
     }
 
     let platformName = getPlatformName(requestDetails.url, true);
@@ -38,15 +38,18 @@ function requestCatcher(requestDetails) {
     });
 }
 
-function launch(protocolUrl, originalRequestUrl) {
+function launch(shouldBypassSettings, protocolUrl, originalRequestUrl) {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
         if (!tabs || !tabs[0]) return;
+        if (!protocolUrl) {
+            protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, shouldBypassSettings);
+        }
 
         if (originalRequestUrl) console.log("Current tab URL: " + tabs[0].url, "Request URL: " + originalRequestUrl, "Similarity: " + calculateStringSimilarity(tabs[0].url, originalRequestUrl));
 
-        // If no original request url isn't given, don't check it. This counts as a bypass for when manually launched by the user and the origin request url is grabbed from the current tab
+        // If no original request url isn't given, don't check it. This counts as a bypass for when manually launched by the user and the url used to generate a protocol is grabbed from the current tab
         if (originalRequestUrl == undefined || calculateStringSimilarity(tabs[0].url, originalRequestUrl) > 0.55) {
-            injectLaunchScript(protocolUrl, tabs[0].id);
+            if (protocolUrl) injectLaunchScript(protocolUrl, tabs[0].id);
         }
     });
 }
@@ -100,7 +103,7 @@ chrome.runtime.onMessage.addListener(function(request) {
     }
 
     if (request.launch) {
-        launch(protocolUrl);
+        launch(true);
     }
 });
 
