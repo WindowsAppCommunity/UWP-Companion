@@ -14,26 +14,13 @@
         "storage"
     ],
     "icons": {
-        "48": "assets/logos/BrowserAction.png",
-        "128": "assets/logos/BrowserActionLarge.png"
+        "48": "assets/logos/BrowserAction.png"
     },
     "browser_action": {
         "default_icon": {
             "48": "assets/logos/BrowserAction.png"
         },
-        "default_popup": "user-interface/index.html",
-        "theme_icons": [
-            {
-                "light": "assets/logos/Square48x48Logo.png",
-                "dark": "assets/logos/Square48x48LogoLight.png",
-                "size": 48
-            },
-            {
-                "light": "assets/logos/Square128x128Logo.png",
-                "dark": "assets/logos/Square128x128LogoLight.png",
-                "size": 128
-            }
-        ]
+        "default_popup": "user-interface/index.html"
     },
     "background": {
         "page": "background-script/index.html"
