@@ -8,25 +8,8 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
     chrome.tabs = browser.tabs;
 }
 
-let currentTabId;
 getSettings();
 launch = debounce(launch, 1500, true);
-
-chrome.webRequest.onBeforeRequest.addListener(
-    requestCatcher,
-    {
-        urls: ["<all_urls>"],
-        tabId: currentTabId
-    }
-);
-
-function requestCatcher(requestDetails) {
-    let protocolUrl = getProtocolUri(requestDetails.url, requestDetails.tabId, false);
-
-    if (protocolUrl != undefined) {
-        launch(false, protocolUrl, requestDetails.url);
-    }
-}
 
 function setupBrowserActionIcon(url, tabId) {
     let iconPath;
@@ -107,8 +90,7 @@ function injectLaunchScript(protocolUrl, tabId) {
 }
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
-    currentTabId = activeInfo.tabId;
-
+    // this event listener doesn't give us the URL, so we have to get it ourselves
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
         if (!tabs || !tabs[0]) return;
         setupBrowserActionIcon(tabs[0].url, tabs[0].id);
@@ -116,7 +98,36 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (!changeInfo.url) return;
+
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+        // Make sure the current tab is the one being updated
+        if (!tabs || !tabs[0] || tabs[0].id != tabId) return;
+
+        let protocolUrl = getProtocolUri(changeInfo.url, tabId, false);
+        if (protocolUrl != undefined) {
+            launch(false, protocolUrl, changeInfo.url);
+        }
+    });
+    
     if (tabId && changeInfo.url) setupBrowserActionIcon(changeInfo.url, tabId);
+});
+
+chrome.webNavigation.onCommitted.addListener(details => {
+    if (!details || !details.tabId || !details.url) return;
+
+    // We only care about this event listener for handling page reloads, which chrome.tabs.onUpdated does not do
+    if (details.transitionType != "reload") return;
+
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+        // Make sure the current tab is the one being refreshed
+        if (!tabs || !tabs[0] || tabs[0].id != details.tabId) return;
+
+        let protocolUrl = getProtocolUri(details.url, details.tabId, false);
+        if (protocolUrl != undefined) {
+            launch(false, protocolUrl, details.url);
+        }
+    });
 });
 
 chrome.runtime.onMessage.addListener(function(request) {
