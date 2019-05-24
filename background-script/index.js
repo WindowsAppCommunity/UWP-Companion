@@ -1,6 +1,5 @@
 import libs, { getProtocolUri, getPlatformName, getPrefferedClient } from '../core/libs.js';
 import { setSettings, getSettings, settings } from '../core/helpers/settings.js';
-import { debounce, calculateStringSimilarity } from '../core/helpers/misc.js';
 import { pauseVideo } from '../core/lib/youtube/master.js';
 
 if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
@@ -9,7 +8,20 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
 }
 
 getSettings();
-launch = debounce(launch, 1500, true);
+
+function launch(shouldBypassSettings, protocolUrl) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+        if (!tabs || !tabs[0]) return;
+        if (!protocolUrl) {
+            protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, shouldBypassSettings);
+        }
+
+        if (protocolUrl) {
+            injectLaunchScript(protocolUrl, tabs[0].id);
+            handlePostLaunchTasks(tabs[0]);
+        }
+    });
+}
 
 function setupBrowserActionIcon(url, tabId) {
     let iconPath;
@@ -34,20 +46,6 @@ function setupBrowserActionIcon(url, tabId) {
     chrome.browserAction.setIcon({
         path: iconPath,
         tabId: tabId
-    });
-}
-
-function launch(shouldBypassSettings, protocolUrl) {
-    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
-        if (!tabs || !tabs[0]) return;
-        if (!protocolUrl) {
-            protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, shouldBypassSettings);
-        }
-
-        if (protocolUrl) {
-            injectLaunchScript(protocolUrl, tabs[0].id);
-            handlePostLaunchTasks(tabs[0]);
-        }
     });
 }
 
