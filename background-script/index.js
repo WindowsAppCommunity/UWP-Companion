@@ -1,5 +1,5 @@
 import libs, { getProtocolUri, getPlatformName, getPrefferedClient } from '../core/libs.js';
-import { setSettings, getSettings } from '../core/helpers/settings.js';
+import { setSettings, getSettings, settings } from '../core/helpers/settings.js';
 import { debounce, calculateStringSimilarity } from '../core/helpers/misc.js';
 import { pauseVideo } from '../core/lib/youtube/master.js';
 
@@ -38,23 +38,66 @@ function setupBrowserActionIcon(url, tabId) {
 }
 
 function launch(shouldBypassSettings, protocolUrl, originalRequestUrl) {
-    setTimeout(() => {
-        chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
-            if (!tabs || !tabs[0]) return;
-            if (!protocolUrl) {
-                protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, shouldBypassSettings);
-            }
+    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+        if (!tabs || !tabs[0]) return;
+        if (!protocolUrl) {
+            protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, shouldBypassSettings);
+        }
 
-            if (originalRequestUrl) console.log("Current tab URL: " + tabs[0].url, "Request URL: " + originalRequestUrl, "Similarity: " + calculateStringSimilarity(tabs[0].url, originalRequestUrl));
+        if (originalRequestUrl) console.log("Current tab URL: " + tabs[0].url, "Request URL: " + originalRequestUrl, "Similarity: " + calculateStringSimilarity(tabs[0].url, originalRequestUrl));
 
-            // If no original request url isn't given, don't check it. This counts as a bypass for when manually launched by the user and the url used to generate a protocol is grabbed from the current tab
-            if (originalRequestUrl == undefined || calculateStringSimilarity(tabs[0].url, originalRequestUrl) > 0.55) {
-                if (protocolUrl) injectLaunchScript(protocolUrl, tabs[0].id);
+        // If no original request url isn't given, don't check it. This counts as a bypass for when manually launched by the user and the url used to generate a protocol is grabbed from the current tab
+        if (originalRequestUrl == undefined || calculateStringSimilarity(tabs[0].url, originalRequestUrl) > 0.55) {
+            if (protocolUrl) {
+                injectLaunchScript(protocolUrl, tabs[0].id);
+                handlePostLaunchTasks(tabs[0]);
             }
-        });
-    }, 200);
+        }
+    });
 }
 
+function handlePostLaunchTasks(tab) {
+    let platformName = getPlatformName(tab.url, true);
+    let client = getPrefferedClient(platformName);
+    if (client.postLaunch != undefined && !settings.platforms[platformName].closeOnSwitch) {
+        client.postLaunch(tab.id);
+    }
+
+    if (settings.platforms[platformName].closeOnSwitch && (libs.platforms[platformName].shouldCloseOnSwitch ? libs.platforms[platformName].shouldCloseOnSwitch(tab.url) : true)) {
+        // Use that fancy recursion to make sure the page is fully loaded before closing. This ensures that all load events fire and no code gets cut off
+
+        let readyStateRepeater = setInterval(() => {
+            chrome.tabs.executeScript(tab.id, {
+                code: `
+                    if (document.readyState != "complete") {
+                        "notReady";
+                    } else {
+                        "ready";
+                    }
+                    `
+            }, results => {
+                if (results) {
+                    for (let result of results) {
+                        // If document isn't ready, return out of the callback. It will be tried again
+                        if (result == "notReady" || result == null) {
+                            return;
+                        }
+                    }
+                    // If this point is reached without failures, stop the recursion and do the stuff
+                    clearInterval(readyStateRepeater);
+
+                    // Needs to be delayed so that code returned by 
+                    chrome.tabs.remove(tab.id);
+                }
+            });
+        }, 200);
+
+        // If a user has _really_ slow internet, it could take this long. Any longer is probably an indication of a glitch and the repeating code needs to be stopped
+        setTimeout(() => {
+            clearInterval(readyStateRepeater);
+        }, 30000);
+    }
+}
 function injectLaunchScript(protocolUrl, tabId) {
     // Some spicey recursion to check the loading state of a page and make sure it's ready before trying to run something
     let readyStateRepeater = setInterval(() => {
@@ -109,7 +152,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             launch(false, protocolUrl, changeInfo.url);
         }
     });
-    
+
     if (tabId && changeInfo.url) setupBrowserActionIcon(changeInfo.url, tabId);
 });
 

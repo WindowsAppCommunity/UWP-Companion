@@ -44,16 +44,7 @@ export function getProtocolUri(uri, tabId, bypass) {
     // perform URL parsing for that platform's preffered client
     let client = getPrefferedClient(platformName);
     let protocol = client.parseUrl(uri, tabId);
-
-    if (client.postLaunch != undefined && protocol) {
-        client.postLaunch(tabId);
-    }
     
-    setTimeout(() => {
-        if (settings.platforms[platformName].closeOnSwitch && platforms[platformName].shouldCloseOnSwitch && platforms[platformName].shouldCloseOnSwitch(uri) && protocol) {
-            chrome.tabs.remove(tabId);
-        }
-    }, 1000);
     return protocol;
 }
 
