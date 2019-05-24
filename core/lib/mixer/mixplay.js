@@ -31,11 +31,16 @@ function pauseStream(tabId) {
             var vid = document.querySelector('video.light-player'); 
             if (vid) {
                 vid.pause();
-                "success";
+                if(vid.paused) {
+                    "success";
+                }
             }`
         }, results => {
-                if (results && results[0] && results[0] == "success") {
+            console.log(results);
+            if (results && results[0] && results[0] == "success") {
+                setTimeout(() => {
                     clearInterval(pauseRepeater);
+                }, 3000);
             }
         });
     }, 200);
@@ -43,5 +48,5 @@ function pauseStream(tabId) {
     // If a user has _really_ slow internet, it could take this long. Any longer is probably an indication of a glitch and the repeating code needs to be stopped
     setTimeout(() => {
         clearInterval(pauseRepeater);
-    }, 15000);
+    }, 25000);
 }
