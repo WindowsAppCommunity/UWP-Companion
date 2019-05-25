@@ -1,3 +1,5 @@
+import RedditParser from './parsing.js';
+
 export default {
     config: {
         logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Legere.png",
@@ -6,7 +8,9 @@ export default {
     },
     name: "Legere",
     parseUrl: function(url) {
-        // Other log to return different protocol URLs
-        return "legere://" + url.split("http://").join("").split("https://").join("");
+        if (RedditParser.isSubreddit(url) || RedditParser.isUser(url) || RedditParser.isPost(url)) {
+            return "legere://" + url.split("http://").join("").split("https://").join("");
+        }
+        return;
     }
 }
