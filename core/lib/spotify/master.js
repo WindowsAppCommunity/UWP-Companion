@@ -1,7 +1,8 @@
 import Spotimo from './spotimo.js';
+import Xpotify from './xpotify.js';
 
 let clients = {
-    Spotimo
+    Spotimo, Xpotify
 };
 
 export function isSpotify(url) {
