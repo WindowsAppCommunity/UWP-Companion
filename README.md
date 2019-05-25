@@ -1,5 +1,5 @@
 # UWP App Companion
-A browser extension to serves as a companion to various 3rd party UWP apps, enabling a smooth transition from Website to App
+A browser extension to serve as a companion to various 3rd party UWP apps, enabling a smooth transition from Website to App
 
 This project is an evolution of another project of mine called the [MyTube Companion](https://github.com/Arlodotexe/myTube-Companion), whose sole purpose was to redirect from YouTube's website to the MyTube app. By using a third party app, you gained access to features that were unavailable to a web browser or that the big guys don't want to implement, such as Picture in picture mode and ad-free viewing.
 
