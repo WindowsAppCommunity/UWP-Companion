@@ -1,7 +1,7 @@
 import Quarrel from './quarrel.js';
 
 let clients = {
-    Quarrel: Quarrel
+    Quarrel
 };
 
 function shouldCloseOnSwitch(url) {

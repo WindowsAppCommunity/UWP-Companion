@@ -1,7 +1,7 @@
 import Mixplay from './mixplay.js';
 
 const clients = {
-    Mixplay: Mixplay
+    Mixplay
 }
 
 export default {

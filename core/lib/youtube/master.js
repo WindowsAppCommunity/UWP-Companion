@@ -2,7 +2,7 @@ import myTube from './mytube.js';
 import YTParser from './parsing.js';
 
 let clients = {
-    myTube: myTube
+    myTube
 };
 
 function shouldCloseOnSwitch(url) {

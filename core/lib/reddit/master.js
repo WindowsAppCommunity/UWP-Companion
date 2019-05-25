@@ -2,8 +2,8 @@ import Legere from './legere.js';
 import Reddplanet from './reddplanet.js';
 
 let clients = {
-    Legere: Legere,
-    Reddplanet: Reddplanet
+    Legere,
+    Reddplanet
 };
 
 export function isReddit(url) {

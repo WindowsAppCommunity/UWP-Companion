@@ -6,11 +6,11 @@ import { Discord } from './lib/discord/master.js';
 import Mixer from './lib/mixer/master.js';
 
 const platforms = {
-    YouTube: YouTube,
-    Reddit: Reddit,
-    Spotify: Spotify,
-    Discord: Discord,
-    Mixer: Mixer
+    YouTube,
+    Reddit,
+    Spotify,
+    Discord,
+    Mixer
 };
 
 import { settings } from './helpers/settings.js';
@@ -44,10 +44,10 @@ export function getProtocolUri(uri, tabId, bypass) {
     // perform URL parsing for that platform's preffered client
     let client = getPrefferedClient(platformName);
     let protocol = client.parseUrl(uri, tabId);
-    
+
     return protocol;
 }
 
 export default {
-    platforms: platforms
+    platforms
 }
