@@ -1,8 +1,8 @@
 // This is here to keep code neat in the future
-import { YouTube } from './lib/youtube/master.js';
-import { Reddit } from './lib/reddit/master.js';
-import { Spotify } from './lib/spotify/master.js';
-import { Discord } from './lib/discord/master.js';
+import YouTube from './lib/youtube/master.js';
+import Reddit from './lib/reddit/master.js';
+import Spotify from './lib/spotify/master.js';
+import Discord from './lib/discord/master.js';
 import Mixer from './lib/mixer/master.js';
 
 const platforms = {

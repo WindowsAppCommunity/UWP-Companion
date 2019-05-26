@@ -13,7 +13,7 @@ export function isReddit(url) {
     } else console.error('Incorrect data recieved while checking domain');
 }
 
-export const Reddit = {
+export default {
     name: "Reddit",
     logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Reddit.png",
     icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Reddit.png",

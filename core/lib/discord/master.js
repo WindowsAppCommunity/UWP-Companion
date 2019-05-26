@@ -15,7 +15,7 @@ function isDiscord(url) {
         return (match && match[1]) ? true : false;
     } else console.error('Incorrect data recieved while checking domain');
 }
-export const Discord = {
+export default {
     name: "Discord",
     logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Discord.png",
     icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Discord.png",

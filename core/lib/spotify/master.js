@@ -12,7 +12,7 @@ export function isSpotify(url) {
     } else console.error('Incorrect data recieved while checking domain');
 }
 
-export const Spotify = {
+export default {
     name: "Spotify",
     logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Spotify.png",
     icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Spotify.png",

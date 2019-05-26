@@ -47,7 +47,7 @@ export function pauseVideo(tabId) {
 
 }
 
-export const YouTube = {
+export default {
     name: "YouTube",
     logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/YouTube.png",
     icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/YouTube.png",
