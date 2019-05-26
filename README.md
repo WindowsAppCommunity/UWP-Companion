@@ -1,33 +1,30 @@
 # UWP App Companion
 A browser extension to serve as a companion to various 3rd party UWP apps, enabling a smooth transition from Website to App
 
-This project is an evolution of another project of mine called the [MyTube Companion](https://github.com/Arlodotexe/myTube-Companion), whose sole purpose was to redirect from YouTube's website to the MyTube app. By using a third party app, you gained access to features that were unavailable to a web browser or that the big guys don't want to implement, such as Picture in picture mode and ad-free viewing.
+This project is an evolution of the [MyTube Companion](https://github.com/Arlodotexe/myTube-Companion), whose sole purpose was to redirect from YouTube's website to the MyTube app. By using a third party app, you gained access to features that were unavailable to a web browser or that the big guys don't want to implement, such as Picture in picture mode and ad-free viewing.
 
 With cooperation from many third party UWP developers, a touch of [Fabric UI](https://developer.microsoft.com/en-us/fabric#/), and little elbow grease, the MyTube Companion was completely torn apart and put back together again in the form of the UWP Companion. From the code that turns the gears to the design of the User Interface, everything has been turned up to 11.
 
 ## Supported Platforms & Clients
 
- - Reddit
-    - Legere
-    - Reddplanet (WIP)
- - YouTube
-    - MyTube
- - Discord
-    - Quarrel
- - Spotify
-    - Spotimo
-    - Xpotify
- - Mixer
-   - Mixplay
+
+|  |  |  |  |  |  |  |
+| - | - | - | - | - | - | - |
+| ![Legere logo](https://arlo.site/projects/UWPCompanion/icons/clients/Legere.png) | ![Reddplannet logo](https://arlo.site/projects/UWPCompanion/icons/platforms/Reddit.png) | ![myTube logo](https://arlo.site/projects/UWPCompanion/icons/clients/myTube.png) | ![Mixplay for Mixer logo](https://arlo.site/projects/UWPCompanion/icons/platforms/Mixer.png) | ![Quarrel logo](https://arlo.site/projects/UWPCompanion/icons/clients/Quarrel.png) | ![Spotimo logo](https://arlo.site/projects/UWPCompanion/icons/clients/Spotimo.png) | ![Xpotify logo](https://store-images.s-microsoft.com/image/apps.57751.13898298321492428.c8ae8ea7-9635-4987-a1cc-fb1336de0cce.0e61f8ff-c087-449f-a8d9-2113895e2417?mode=scale&q=90&h=48&w=48&background=transparent) |
+| <font size="+1">Legere</font> | <font size="+0.7">Reddplanet</font> | <font size="+1">myTube</font> | <font size="+1">Mixplay</font> | <font size="+1">Quarrel</a> | <font size="+1">Spotimo</font> | <font size="+1">Xpotify</font> |
+|  |  |  |  |  |  |  |
 
  
-### Looking to contribute?
+## How's it work?
+TODO
+
+## Looking to contribute?
 
 The UWP Companion is always looking to support new apps! The codebase is ***extremely*** modular and designed to be as easy to work with as possible, even if you're a brand new developer.
 
 If you're the developer of an app, [see our docs](docs/contributing.md) to get started.
 
-### Find a bug?
+## Find a bug?
 The UWP Companion is currently in Beta. As such, bugs should be expected. Known issues will be tracked in the [Github Issues](https://github.com/Arlodotexe/UWP-Companion/issues)
 
 Bugs should be tracked here on GitHub.
