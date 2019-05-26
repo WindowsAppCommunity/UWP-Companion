@@ -35,7 +35,7 @@ If you'd like to add a new platform, it's going to take a few more steps.
 
 
 
-## Adding a new platform
+# Adding a new platform
 
 Steps for adding a new platform
 1. Create a new folder for the platform in `/src/lib/` with the name of your app (all lowercase)
@@ -45,27 +45,47 @@ Steps for adding a new platform
 5. In `/core/helpers/settings.js`, add a new entry under `DefaultSettings.platforms`. The key is your `platform.name` again, while the value is an [`IPlatformSetting`](todo, create type documentation).
 
 ---
-### `master.js` requirements:
+## Setting up `master.js`:
 
-Must `export` an object with the following methods:
-
-`function baseUrlMatch(url: any): boolean`: must consume a url and return true or false if it matches the hostname for this platform
+`master.js` must export a default object like so:
 
 
-`function shouldCloseOnSwitch(url: any): boolean`: must consume a url and return true or false if it is acceptable to close the tab after the preffered app is launched
+| Param  | Type                | Description  |
+| ------ | ------------------- | ------------ |
+| name | <code>string</code> | Name of the platform |
+| logo | <code>string</code> | URL of the full sized logo. Will be downscaled and displayed to the user |
+| icon | <code>string</code> | URL of the an icon version of the logo. Used as a fallback in the extension bar when the user is on a site supported by a client | 
+| baseUrlMatch | <code>function</code> | Used to match a website to a platform. Consumes a (url: `string`) and returns a `bool` |
+| shouldCloseOnSwitch | <code>function</code> | (Optional) Used to determine if the extension should close the tab after a client is launched. Consumes (url: `string`, tab: `object`) and returns a `bool` |
+| clients | <code>object</code> | Key-value pairs of the clients supported on this platform. Keep these comma seperated for brevity |
 
-`clients`: An object containing imports of all apps for this platform. Keys should be the name of the app, values are the app data. See existing code for details.
+When all set up, `master.js` should look something like this:
+```javascript
+import myTube from './mytube.js';
+import YTParser from './parsing.js';
+
+export default {
+    name: "YouTube",
+    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/YouTube.png",
+    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/YouTube.png",
+    baseUrlMatch: YTParser.isYoutube,
+    clients: {
+        myTube
+    }
+};
+```
 
 ### `parsing.js`:
 
-This file is all the URL parsing methods you'll need for detecting and capturing certain parts of an official URL.  
+This file will contains all the URL parsing methods you'll need for detecting and capturing certain parts of an official URL.  
 
 The only major requirement is that all methods get exported as default on an object, like so:
 
 ```javascript
 export default {
-    hasSomeId: hasSomeId,
-    ...
+    hasId,
+    isSomething,
+    isSomethingElse
 }
 ```
 

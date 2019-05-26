@@ -1,5 +1,3 @@
-import { platform } from 'os';
-
 /* Typings for core js files */
 
 export interface IClient {
@@ -38,7 +36,6 @@ export interface ILib {
 export interface ISettings {
     theme?: IThemeSetting,
     platforms: IPlatformSettings
-    
 }
 
 export interface IPlatformSettings {

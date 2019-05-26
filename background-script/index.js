@@ -56,7 +56,7 @@ function handlePostLaunchTasks(tab) {
         client.postLaunch(tab.id);
     }
 
-    if (settings.platforms[platformName].closeOnSwitch && (libs.platforms[platformName].shouldCloseOnSwitch ? libs.platforms[platformName].shouldCloseOnSwitch(tab.url) : true)) {
+    if (settings.platforms[platformName].closeOnSwitch && (libs.platforms[platformName].shouldCloseOnSwitch ? libs.platforms[platformName].shouldCloseOnSwitch(tab.url, tab.id) : true)) {
         // Use that fancy recursion to make sure the page is fully loaded before closing. This ensures that all load events fire and no code gets cut off
 
         let readyStateRepeater = setInterval(() => {
@@ -79,7 +79,6 @@ function handlePostLaunchTasks(tab) {
                     // If this point is reached without failures, stop the recursion and do the stuff
                     clearInterval(readyStateRepeater);
 
-                    // Needs to be delayed so that code returned by 
                     chrome.tabs.remove(tab.id);
                 }
             });
