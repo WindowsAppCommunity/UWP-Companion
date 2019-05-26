@@ -1,6 +1,6 @@
 import { settings } from '../../helpers/settings.js';
 import YTParser from './parsing.js';
-import { pauseVideo } from './master.js';
+import { pauseVideo } from './helpers.js';
 
 function urlToProtocolRaw(url) {
     if (YTParser.isYoutube(url)) {
