@@ -1,6 +1,5 @@
 import libs, { getProtocolUri, getPlatformName, getPrefferedClient } from '../core/libs.js';
 import { setSettings, getSettings, settings } from '../core/helpers/settings.js';
-import { pauseVideo } from '../core/lib/youtube/master.js';
 
 if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
     // Replacing chrome.tabs with browser.tabs for Firefox / other browsers that may need it
@@ -169,10 +168,6 @@ chrome.runtime.onMessage.addListener(function(request) {
     console.log("message received: ", request);
     if (request.updateSettings != undefined) {
         setSettings(request.updateSettings);
-    }
-
-    if (request.pauseVideo != undefined) {
-        pauseVideo(request.tabId);
     }
 
     if (request.launch) {
