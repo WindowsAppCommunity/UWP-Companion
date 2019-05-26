@@ -1,14 +1,15 @@
 import myTube from './mytube.js';
 import YTParser from './parsing.js';
 
-let clients = {
-    myTube
+export default {
+    name: "YouTube",
+    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/YouTube.png",
+    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/YouTube.png",
+    baseUrlMatch: YTParser.isYoutube,
+    clients: {
+        myTube
+    }
 };
-
-function shouldCloseOnSwitch(url) {
-    // If the url isn't a youtube url, don't close the tab
-    return (YTParser.isYoutube(url) ? true : false);
-}
 
 export function pauseVideo(tabId) {
     if (tabId == undefined || tabId < 1) return;
@@ -44,14 +45,4 @@ export function pauseVideo(tabId) {
     setTimeout(() => {
         clearInterval(pauseRepeater);
     }, 15000);
-
 }
-
-export default {
-    name: "YouTube",
-    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/YouTube.png",
-    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/YouTube.png",
-    baseUrlMatch: YTParser.isYoutube,
-    shouldCloseOnSwitch: shouldCloseOnSwitch,
-    clients: clients
-};

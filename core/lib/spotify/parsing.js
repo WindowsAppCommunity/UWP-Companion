@@ -18,9 +18,16 @@ function hasPlaylist(url) {
         return (match !== null ? match[1] : null);
     } else console.error('Incorrect data recieved while checking for Playlist');
 }
+function isSpotify(url) {
+    if (typeof url == 'string') {
+        let match = url.match(/^http.?:\/\/(?:www\.)?(open.spotify\.[a-z]{0,4})/);
+        return (match && match[1]) ? true : false;
+    } else console.error('Incorrect data recieved while checking domain');
+}
 
 export default {
     hasPlaylist,
     hasArtist,
-    hasAlbum
+    hasAlbum,
+    isSpotify
 }

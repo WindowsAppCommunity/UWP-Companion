@@ -1,5 +1,14 @@
 import { containsBlacklistedKeyword } from '../../helpers/misc.js';
 
+export default {
+    name: "Mixplay",
+    parseUrl: getProtocolFromUrl,
+    postLaunch: pauseStream,
+    config: {
+        color: "#1ABAF3"
+    }
+};
+
 let blacklistedUrlKeywords = ["/", "dashboard"];
 
 function getProtocolFromUrl(url, tabId) {
@@ -11,15 +20,6 @@ function getProtocolFromUrl(url, tabId) {
     }
     return;
 }
-
-export default {
-    name: "Mixplay",
-    parseUrl: getProtocolFromUrl,
-    postLaunch: pauseStream,
-    config: {
-        color: "#1ABAF3"
-    }
-};
 
 function pauseStream(tabId) {
     // Mixer seems to have done something to prevent a regular script injection from working until the page is loaded completely, even when using the 'load' event listener + document.readyState. It wasn't throwing errors, it just doesn't run it.
