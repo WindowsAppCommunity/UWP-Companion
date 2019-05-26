@@ -34,7 +34,7 @@ Steps for creating a new client:
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
 | name | `string` | Name of the client |
-| parseUrl | `function` | Used to transform an HTTP URL to a protocol URI for your app. Runs every time the current tab is updated or reloaded. Consumes a (url: `string`) and should return (protocol: `string | undefined`) |
+| parseUrl | `function` | Used to transform an HTTP URL to a protocol URI for your app. Runs every time the current tab is updated or reloaded, and only on sites that pass `baseUrlMatch` for the platform . Consumes a (url: `string`) and should return (protocol: `string | undefined`) |
 | postLaunch | `function` | Runs after a client is launched. Used to perform actions on a page such as pausing a video |
 | config | `object` | Config object. Unused for now, but will be used in the future |
 
