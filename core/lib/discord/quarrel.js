@@ -13,6 +13,7 @@ export default {
     config: {
         logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Quarrel.png",
         icon: "https://arlo.site/projects/UWPCompanion/icons/clients/Quarrel.png",
-        color: "#7289DA"
+        color: "#7289DA",
+        packageFamilyName: "38062AvishaiDernis.QuarrelInsider_q72k3wbnqqnj6"
     }
 };

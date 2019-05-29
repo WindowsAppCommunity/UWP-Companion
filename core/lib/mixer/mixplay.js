@@ -6,7 +6,8 @@ export default {
     parseUrl: getProtocolFromUrl,
     postLaunch: pauseStream,
     config: {
-        color: "#1ABAF3"
+        color: "#1ABAF3",
+        packageFamilyName: "39170Flydream.Mixer_weq318ptssvpt"
     }
 };
 
