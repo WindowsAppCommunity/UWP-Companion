@@ -10,13 +10,9 @@ With cooperation from many third party UWP developers, a touch of [Fabric UI](ht
 
 |  |  |  |  |  |  |  |
 | - | - | - | - | - | - | - |
-| ![Legere logo](https://arlo.site/projects/UWPCompanion/icons/clients/Legere.png) | ![Reddplannet logo](https://arlo.site/projects/UWPCompanion/icons/platforms/Reddit.png) | ![myTube logo](https://arlo.site/projects/UWPCompanion/icons/clients/myTube.png) | ![Mixplay for Mixer logo](https://arlo.site/projects/UWPCompanion/icons/platforms/Mixer.png) | ![Quarrel logo](https://arlo.site/projects/UWPCompanion/icons/clients/Quarrel.png) | ![Spotimo logo](https://arlo.site/projects/UWPCompanion/icons/clients/Spotimo.png) | ![Xpotify logo](https://store-images.s-microsoft.com/image/apps.57751.13898298321492428.c8ae8ea7-9635-4987-a1cc-fb1336de0cce.0e61f8ff-c087-449f-a8d9-2113895e2417?mode=scale&q=90&h=48&w=48&background=transparent) |
+| ![Legere logo](https://arlo.site/projects/UWPCompanion/icons/clients/Legere.png) | ![Reddplannet logo](https://arlo.site/projects/UWPCompanion/icons/platforms/Reddit.png) | ![myTube logo](https://arlo.site/projects/UWPCompanion/icons/clients/myTube.png) | ![Mixplay for Mixer logo](https://arlo.site/projects/UWPCompanion/icons/platforms/Mixer.png) | ![Quarrel logo](https://arlo.site/projects/UWPCompanion/icons/clients/Quarrel.png) | ![Spotimo logo](https://arlo.site/projects/UWPCompanion/icons/clients/Spotimo.png) | ![Xpotify logo](https://arlo.site/projects/UWPCompanion/icons/clients/Xpotify.png) |
 | <font size="+1">Legere</font> | <font size="+0.7">Reddplanet</font> | <font size="+1">myTube</font> | <font size="+1">Mixplay</font> | <font size="+1">Quarrel</a> | <font size="+1">Spotimo</font> | <font size="+1">Xpotify</font> |
 |  |  |  |  |  |  |  |
-
- 
-## How's it work?
-TODO
 
 ## Looking to contribute?
 
