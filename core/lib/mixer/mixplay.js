@@ -7,7 +7,7 @@ export default {
     postLaunch: pauseStream,
     config: {
         color: "#1ABAF3",
-        packageFamilyName: "39170Flydream.Mixer_weq318ptssvpt"
+        appProtocol: "mixergo"
     }
 };
 

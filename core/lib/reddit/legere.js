@@ -5,7 +5,7 @@ export default {
         logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Legere.png",
         icon: "https://arlo.site/projects/UWPCompanion/icons/clients/Legere.png",
         color: "#FF4500",
-        packageFamilyName: "26577SergioPedri.Legere_bkmwp5a68shk0"
+        appProtocol: "legere"
     },
     name: "Legere",
     parseUrl: function(url) {

@@ -58,6 +58,6 @@ export default {
         logo: "https://arlo.site/projects/UWPCompanion/logos/clients/myTube.png",
         icon: "https://arlo.site/projects/UWPCompanion/icons/clients/myTube.png",
         color: "#303030",
-        packageFamilyName: "59750RykenApps.myTubeBeta_zd92nzxdcatqw"
+        appProtocol: "rykentube"
     }
 };

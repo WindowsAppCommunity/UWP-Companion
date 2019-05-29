@@ -16,7 +16,7 @@ export default {
         logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Spotimo.png",
         icon: "https://arlo.site/projects/UWPCompanion/icons/clients/Spotimo.png",
         color: "#FF4500",
-        packageFamilyName: "59553ArloG.Spotimo_gzh7hvbrgycb4"
+        appProtocol: "spotimo"
     },
     name: "Spotimo",
     parseUrl: getProtocolFromUrl
