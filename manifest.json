@@ -11,7 +11,9 @@
         "webRequestBlocking",
         "webNavigation",
         "tabs",
-        "storage"
+        "storage",
+        "clipboardRead",
+        "clipboardWrite"
     ],
     "icons": {
         "48": "assets/logos/BrowserAction.png"

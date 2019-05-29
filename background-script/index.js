@@ -175,3 +175,22 @@ chrome.runtime.onMessage.addListener(function(request) {
     }
 });
 
+function getClipboardData() {
+    var t = document.createElement("input");
+    document.body.appendChild(t);
+    t.focus();
+    document.execCommand("paste");
+    var clipboardText = t.value;
+    document.body.removeChild(t);
+    return clipboardText;
+}
+
+function copyTextToClipboard(text) {
+    var copyFrom = document.createElement("textarea");
+    copyFrom.textContent = text;
+    document.body.appendChild(copyFrom);
+    copyFrom.select();
+    document.execCommand('copy');
+    copyFrom.blur();
+    document.body.removeChild(copyFrom);
+}
