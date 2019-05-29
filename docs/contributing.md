@@ -45,6 +45,7 @@ Steps for creating a new client:
 | logo | `string` | Logo for the app. Should have as little padding possible, be at most 225px tall and exactly 225px wide. |
 | icon | `string` | A smaller version of the logo used in the extension bar when the user is on a compatible site. Should be 48x48 with no padding |
 | color | `string` | Unused for now, may be used for themeing in the future |
+| packageFamilyName | `string` | The Package Family Name for the UWP App. Will be used in the future for auto-detecting installed apps |
 
 That's it! The end result for your new `.js` file will look something like this:
 ```javascript
