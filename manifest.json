@@ -7,8 +7,6 @@
     "description": "Redirect various websites to a preferred third party UWP app",
     "permissions": [
         "<all_urls>",
-        "webRequest",
-        "webRequestBlocking",
         "webNavigation",
         "tabs",
         "storage",
