@@ -94,6 +94,12 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
 
     (settings as ISettings).platforms[this.props.Platform.name].prefferedApp = newClient.name;
     RelaySettingsState();
+
+    if (!this.props.isSettingsView) {
+      chrome.runtime.sendMessage({
+        updateIcon: this.state.Client
+      });
+    }
   };
 
   OnEnabledChanged = (event: React.MouseEvent<HTMLElement, MouseEvent>, checked?: boolean | undefined) => {
@@ -150,7 +156,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
             margin: "10px",
             display: (this.props.isSettingsView == true ? "none" : "block")
           }}>
-          Launch {this.props.DefaultClient.name}
+          Launch {this.state.Client.name}
         </PrimaryButton>
 
         <Toggle

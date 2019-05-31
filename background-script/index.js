@@ -51,62 +51,70 @@ function setupBrowserActionIcon(url, tabId) {
 function handlePostLaunchTasks(tab) {
     let platformName = getPlatformName(tab.url, true);
     let client = getPrefferedClient(platformName);
-    if (client.postLaunch != undefined && !settings.platforms[platformName].closeOnSwitch) {
-        client.postLaunch(tab.id);
-    }
 
-    if (settings.platforms[platformName].closeOnSwitch && (libs.platforms[platformName].shouldCloseOnSwitch ? libs.platforms[platformName].shouldCloseOnSwitch(tab.url, tab.id) : true)) {
-        // Use that fancy recursion to make sure the page is fully loaded before closing. This ensures that all load events fire and no code gets cut off
+    // Use that fancy recursion to make sure the page is fully loaded before running post launch tasks. This ensures that all load events fire and no code gets cut off
 
-        let readyStateRepeater = setInterval(() => {
-            chrome.tabs.executeScript(tab.id, {
-                code: `
-                    if (document.readyState != "complete") {
-                        "notReady";
-                    } else {
-                        "ready";
-                    }
-                    `
-            }, results => {
-                if (results) {
-                    for (let result of results) {
-                        // If document isn't ready, return out of the callback. It will be tried again
-                        if (result == "notReady" || result == null) {
-                            return;
-                        }
-                    }
-                    // If this point is reached without failures, stop the recursion and do the stuff
-                    clearInterval(readyStateRepeater);
-
-                    chrome.tabs.remove(tab.id);
-                }
-            });
-        }, 200);
-
-        // If a user has _really_ slow internet, it could take this long. Any longer is probably an indication of a glitch and the repeating code needs to be stopped
-        setTimeout(() => {
-            clearInterval(readyStateRepeater);
-        }, 30000);
-    }
-}
-function injectLaunchScript(protocolUrl, tabId) {
-    // Some spicey recursion to check the loading state of a page and make sure it's ready before trying to run something
     let readyStateRepeater = setInterval(() => {
-        chrome.tabs.executeScript(tabId, {
+        chrome.tabs.executeScript(tab.id, {
             code: `
-            if (document.readyState != "complete") {
-                "notReady";
-            } else {
-                let a = document.createElement("a");
-                    a.href = "${protocolUrl}";
-                    a.click();
-                    "success";
-            }
-            `
+                if (document.readyState != "complete") {
+                    "notReady";
+                } else {
+                    "ready";
+                }
+                `
         }, results => {
             if (results) {
                 for (let result of results) {
                     // If document isn't ready, return out of the callback. It will be tried again
+                    if (result == "notReady" || result == null) {
+                        return;
+                    }
+                }
+                // If this point is reached without failures, stop the recursion and do the stuff
+                clearInterval(readyStateRepeater);
+
+                if (client.postLaunch != undefined && !settings.platforms[platformName].closeOnSwitch) {
+                    client.postLaunch(tab.id);
+                }
+
+                if (settings.platforms[platformName].closeOnSwitch && (libs.platforms[platformName].shouldCloseOnSwitch ? libs.platforms[platformName].shouldCloseOnSwitch(tab.url, tab.id) : true)) {
+                    chrome.tabs.remove(tab.id);
+                }
+            }
+        });
+
+    }, 200);
+
+    // If a user has _really_ slow internet, it could take this long. Any longer is probably an indication of a glitch and the repeating code needs to be stopped
+    setTimeout(() => {
+        clearInterval(readyStateRepeater);
+    }, 30000);
+}
+}
+
+// NOTE:
+// We don't actually have to wait for the page to finish loading here
+// We can move the waiting stuff to postLaunch
+
+// Please fix
+function injectLaunchScript(protocolUrl, tabId) {
+    let readyStateRepeater = setInterval(() => {
+        chrome.tabs.executeScript(tabId, {
+            code: `
+                try {
+                    var protoLaunch = document.createElement("a");
+                    protoLaunch.href = "${protocolUrl}";
+                    protoLaunch.click();
+                    "success";
+                } catch(ex) {
+                    "notReady";
+                }
+            `
+        }, results => {
+            if (results) {
+                for (let result of results) {
+                    // If it failed, return out of the callback. It will be tried again
                     if (result == "notReady" || result == null) {
                         return;
                     }
@@ -172,6 +180,12 @@ chrome.runtime.onMessage.addListener(function(request) {
 
     if (request.launch) {
         launch(true);
+    }
+
+    if (request.updateIcon) {
+        chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+            setupBrowserActionIcon(tabs[0].url, tabs[0].id);
+        });
     }
 });
 
