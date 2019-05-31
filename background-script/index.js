@@ -91,7 +91,6 @@ function handlePostLaunchTasks(tab) {
         clearInterval(readyStateRepeater);
     }, 30000);
 }
-}
 
 // NOTE:
 // We don't actually have to wait for the page to finish loading here
