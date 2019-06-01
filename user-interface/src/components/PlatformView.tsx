@@ -49,7 +49,7 @@ function PopulateClientsDropdown(platform: string, clear?: boolean): void {
     while (ClientsDropdown.length > 0) ClientsDropdown.shift();
   }
 
-  for (let i of Object.keys(((libs as unknown as ILib).platforms[platform].clients))) {
+  for (let i of Object.keys((libs as unknown as ILib).platforms[platform].clients)) {
     ClientsDropdown.push({
       text: i,
       key: i
@@ -172,7 +172,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
           inlineLabel={true}
           onChange={this.OnCloseOnSwitchChanged}
         />
-        <Dropdown placeholder="Choose another app..." responsiveMode={ResponsiveMode.large} options={ClientsDropdown} styles={dropdownStyles} onChange={this.OnClientSelected} />
+        <Dropdown placeholder="Choose another app..." defaultSelectedKey={this.state.Client.name} responsiveMode={ResponsiveMode.large} options={ClientsDropdown} styles={dropdownStyles} onChange={this.OnClientSelected} />
       </Stack >
     );
   }
