@@ -2,7 +2,7 @@
     "name": "UWP Companion  (Beta)",
     "short_name": "UWP Companion",
     "author": "Arlo Godfrey",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "manifest_version": 2,
     "description": "Redirect various websites to a preferred third party UWP app",
     "permissions": [
