@@ -15,7 +15,7 @@ export default {
     config: {
         logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Spotimo.png",
         icon: "https://arlo.site/projects/UWPCompanion/icons/clients/Spotimo.png",
-        color: "#FF4500",
+        color: "#1ED760",
         appProtocol: "spotimo"
     },
     name: "Spotimo",
