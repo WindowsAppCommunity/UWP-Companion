@@ -16,14 +16,18 @@ export function pauseVideo(tabId) {
             `
         }, results => {
             if (results) {
+                console.log(results);
                 for (let result of results) {
                     // If anything failed, return. It will be tried again
                     if (result == "failed" || result == null) {
                         return;
                     }
                 }
-                // If this point is reached without failures, stop trying to pause the videos
-                clearInterval(pauseRepeater);
+                // If this point is reached without failures, stop trying to pause the videos after X seconds
+
+                setTimeout(() => {
+                    clearInterval(pauseRepeater);
+                }, 2000);
             }
         });
     }, 200);
@@ -31,5 +35,5 @@ export function pauseVideo(tabId) {
     // If a user has _really_ slow internet, it could take this long. Any longer is probably an indication of a glitch and the repeating code needs to be stopped
     setTimeout(() => {
         clearInterval(pauseRepeater);
-    }, 15000);
+    }, 30000);
 }
