@@ -42,7 +42,7 @@ export class UnsupportedView extends React.Component<IUnsupportedView> {
                     </Text>
 
                     <Text variant="smallPlus">Know of a compatible app?</Text>
-                    <Text variant="smallPlus"><Link href="https://github.com/Arlodotexe/UWP-Companion">See how you can help</Link></Text>
+                    <Text variant="smallPlus"><Link href="https://github.com/Arlodotexe/UWP-Companion" target="_blank">See how you can help</Link></Text>
                 </Stack>
             </Stack>
         )
