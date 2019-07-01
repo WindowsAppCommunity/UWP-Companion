@@ -13,8 +13,9 @@ export default {
     parseUrl: function(url) {
         if (containsBlacklistedKeyword(url, blacklistedUrlKeywords)) return;
         
-        console.log(url);
-        if (RedditParser.isSubreddit(url)) return ("reddplanet://" + RedditParser.isSubreddit(url));
+        if (RedditParser.isSubreddit(url) || RedditParser.isPost(url)) {
+            return ("reddplanet://" + url.split("http://").join("").split("https://").join(""));
+        }
         
     }
 }
