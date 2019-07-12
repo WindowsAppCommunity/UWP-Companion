@@ -1,4 +1,5 @@
 import myTube from './mytube.js';
+import Youtubeast from './youtubeast.js'
 import YTParser from './parsing.js';
 
 export default {
@@ -7,6 +8,7 @@ export default {
     icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/YouTube.png",
     baseUrlMatch: YTParser.isYoutube,
     clients: {
-        myTube
+        myTube,
+        Youtubeast
     }
 };

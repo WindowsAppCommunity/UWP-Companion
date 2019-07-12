@@ -21,7 +21,7 @@ If the platform is already set up, you can add a new client in less than [20 lin
 
 
 Steps for creating a new client:
-1. Find the folder for the platform you are targeting in `/src/lib/`. If your platform doesn't exist, you'll have to [add a new platform](#Adding-a-new-platform)
+1. Find the folder for the platform you are targeting in `/core/lib/`. If your platform doesn't exist, you'll have to [add a new platform](#Adding-a-new-platform)
 2. Create a new file, and name it after your client (all lowercase). The file extension is `.js`. For example, if you're adding a client called `Foo`, create `foo.js`
 3. Populate the newly created file using the documentation below
 4. In `master.js` within the same folder, `import` the client as the same exact `name` you created when populating your client. 
