@@ -14,7 +14,7 @@ export default {
         if (containsBlacklistedKeyword(url, blacklistedUrlKeywords)) return;
         
         if (RedditParser.isSubreddit(url) || RedditParser.isPost(url)) {
-            return ("reddplanet://" + url.split("http://").join("").split("https://").join(""));
+            return ("reddplanet://" + url.replace(/https?:\/\//, ""));
         }
         
     }
