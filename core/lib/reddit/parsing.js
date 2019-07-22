@@ -27,6 +27,15 @@ function isPost(url) {
 
 /**
  * @param {string} url Reddit url to match against
+ * @returns {[{string},{string}]} Post id and comment, if any 
+ */
+function isComment(url) {
+    let match = url.match(/^https?:\/\/(?:www\.)?(?:old\.)?reddit\.com\/r\/(?!_)\w{3,21}\/comments\/(\w+)\/\w+\/(\w+)\/?/);
+    return (match && match[1] && match[2]) ? [match[1], match[2]] : undefined;
+}
+
+/**
+ * @param {string} url Reddit url to match against
  * @returns {boolean} Boolean
  */
 function isReddit(url) {
@@ -44,5 +53,5 @@ function isMultireddit(url) {
 }
 
 export default {
-    isSubreddit, isUser, isPost, isReddit, isMultireddit
+    isSubreddit, isUser, isPost, isComment, isReddit, isMultireddit
 }
