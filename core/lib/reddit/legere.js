@@ -9,7 +9,7 @@ export default {
     },
     name: "Legere",
     parseUrl: function(url) {
-        if (RedditParser.isSubreddit(url) || RedditParser.isUser(url) || RedditParser.isPost(url) || RedditParser.isMultireddit(url)) {
+        if (RedditParser.isSubreddit(url) || RedditParser.isUser(url) || RedditParser.isPost(url) || RedditParser.isComment(url) || RedditParser.isMultireddit(url)) {
             return "legere://" + url.split("http://").join("").split("https://").join("");
         }
         return;
