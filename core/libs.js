@@ -17,6 +17,7 @@ import { settings } from './helpers/settings.js';
 
 export function getPlatformName(uri, bypass) {
     let platformName;
+    if(!uri) return;
 
     for (const name of Object.keys(platforms)) {
         if ((settings.platforms[name].isEnabled || bypass) && platforms[name].baseUrlMatch(uri)) {

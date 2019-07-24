@@ -7,6 +7,7 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
 }
 
 getSettings();
+setupBrowserActionIcon();
 
 function launch(shouldBypassSettings, protocolUrl) {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
