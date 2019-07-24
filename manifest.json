@@ -9,16 +9,15 @@
         "<all_urls>",
         "webNavigation",
         "tabs",
-        "storage",
-        "clipboardRead",
-        "clipboardWrite"
+        "storage"
     ],
     "icons": {
-        "48": "/assets/logos/BrowserAction.png"
+        "40": "assets/icons/UWPCompanion.png",
+        "256": "assets/logos/UWPCompanion.png"
     },
     "browser_action": {
         "default_icon": {
-            "48": "/assets/logos/BrowserAction.png"
+            "40": "assets/icons/UWPCompanion.png"
         },
         "default_popup": "user-interface/index.html"
     },
