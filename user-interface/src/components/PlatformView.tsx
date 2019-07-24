@@ -169,6 +169,14 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
         <Toggle
           defaultChecked={(settings as ISettings).platforms[this.props.Platform.name].closeOnSwitch}
           label="Close window on switch"
+          styles={{
+            container: {
+              display: navigator.appVersion.includes('Edge') ? "none" : "unset"
+            },
+            label: {
+              display: navigator.appVersion.includes('Edge') ? "none" : "unset"
+            }
+          }}
           inlineLabel={true}
           onChange={this.OnCloseOnSwitchChanged}
         />
