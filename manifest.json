@@ -23,6 +23,7 @@
         "default_popup": "user-interface/index.html"
     },
     "background": {
-        "page": "background-script/index.html"
+        "page": "background-script/index.html",
+        "persistent": true
     }
 }
