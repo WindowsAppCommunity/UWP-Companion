@@ -97,7 +97,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
 
     if (!this.props.isSettingsView) {
       chrome.runtime.sendMessage({
-        updateIcon: this.state.Client
+        updateIcon: true
       });
     }
   };

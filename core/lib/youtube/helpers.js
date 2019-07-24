@@ -16,7 +16,6 @@ export function pauseVideo(tabId) {
             `
         }, results => {
             if (results) {
-                console.log(results);
                 for (let result of results) {
                     // If anything failed, return. It will be tried again
                     if (result == "failed" || result == null) {

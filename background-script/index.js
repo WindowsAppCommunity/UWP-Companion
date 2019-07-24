@@ -7,13 +7,13 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
 }
 
 getSettings();
-chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
     if (!tabs || !tabs[0]) return;
     setupBrowserActionIcon(tabs[0].url, tabs[0].id);
 });
 
 function launch(shouldBypassSettings, protocolUrl) {
-    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         if (!tabs || !tabs[0]) return;
         if (!protocolUrl) {
             protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, shouldBypassSettings);
@@ -96,47 +96,39 @@ function handlePostLaunchTasks(tab) {
     }, 30000);
 }
 
-// NOTE:
-// We don't actually have to wait for the page to finish loading here
-// We can move the waiting stuff to postLaunch
+function injectLaunchScript(protocolUrl, tabId, trycount = 0) {
+    chrome.tabs.executeScript(tabId, {
+        code: `
+            try {
+                var protoLaunch = document.createElement("a");
+                protoLaunch.href = "${protocolUrl}";
+                protoLaunch.className = "protoLaunch";
 
-// Please fix
-function injectLaunchScript(protocolUrl, tabId) {
-    let readyStateRepeater = setInterval(() => {
-        chrome.tabs.executeScript(tabId, {
-            code: `
-                try {
-                    var protoLaunch = document.createElement("a");
-                    protoLaunch.href = "${protocolUrl}";
-                    protoLaunch.click();
-                    "success";
-                } catch(ex) {
-                    "notReady";
-                }
-            `
-        }, results => {
-            if (results) {
-                for (let result of results) {
-                    // If it failed, return out of the callback. It will be tried again
-                    if (result == "notReady" || result == null) {
-                        return;
-                    }
-                }
-                // If this point is reached without failures, stop the recursion
-                clearInterval(readyStateRepeater);
+                document.body.appendChild(protoLaunch);
+                document.querySelector(".protoLaunch").click();
+                "success";
+            } catch(ex) {
+                "notReady";
             }
-        });
-    }, 200);
+        `
+    }, results => {
+        if (results) {
+            console.log(result);
+            if (result == undefined || result[0] != "success") {
+                // Don't retry more than 5 times
+                if (trycount >= 5) return;
 
-    // If a user has _really_ slow internet, it could take this long. Any longer is probably an indication of a glitch and the repeating code needs to be stopped
-    setTimeout(() => {
-        clearInterval(readyStateRepeater);
-    }, 15000);
+                setTimeout(() => {
+                    injectLaunchScript(protocolUrl, tabId, trycount++);
+                }, 200);
+            }
+        }
+    });
 }
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
     // this event listener doesn't give us the URL, so we have to get it ourselves
-    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         if (!tabs || !tabs[0]) return;
         setupBrowserActionIcon(tabs[0].url, tabs[0].id);
     });
@@ -145,7 +137,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (!changeInfo.url) return;
 
-    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         // Make sure the current tab is the one being updated
         if (!tabs || !tabs[0] || tabs[0].id != tabId) return;
 
@@ -164,7 +156,7 @@ chrome.webNavigation.onCommitted.addListener(details => {
     // We only care about this event listener for handling page reloads, which chrome.tabs.onUpdated does not do
     if (details.transitionType != "reload") return;
 
-    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         // Make sure the current tab is the one being refreshed
         if (!tabs || !tabs[0] || tabs[0].id != details.tabId) return;
 
@@ -175,7 +167,7 @@ chrome.webNavigation.onCommitted.addListener(details => {
     });
 });
 
-chrome.runtime.onMessage.addListener(function(request) {
+chrome.runtime.onMessage.addListener(function (request) {
     console.log("message received: ", request);
     if (request.updateSettings != undefined) {
         setSettings(request.updateSettings);
@@ -186,7 +178,7 @@ chrome.runtime.onMessage.addListener(function(request) {
     }
 
     if (request.updateIcon) {
-        chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
             setupBrowserActionIcon(tabs[0].url, tabs[0].id);
         });
     }
