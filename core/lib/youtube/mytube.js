@@ -55,8 +55,8 @@ export default {
     parseUrl: getProtocolFromUrl,
     postLaunch: postLaunch,
     config: {
-        logo: "https://arlo.site/projects/UWPCompanion/logos/clients/myTube.png",
-        icon: "https://arlo.site/projects/UWPCompanion/icons/clients/myTube.png",
+        logo: "assets/logos/clients/myTube.png",
+        icon: "assets/icons/clients/myTube.png",
         color: "#303030",
         appProtocol: "rykentube"
     }

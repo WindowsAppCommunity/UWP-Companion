@@ -42,8 +42,8 @@ Steps for creating a new client:
 
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
-| logo | `string` | Logo for the app. Should have as little padding possible, be at most 225px tall and exactly 225px wide. |
-| icon | `string` | A smaller version of the logo used in the extension bar when the user is on a compatible site. Should be 48x48 with no padding |
+| logo | `string` | Logo for the app. Should have as little padding possible, be at most 225px tall and exactly 225px wide and stored in the `/assets/logos/clients/` folder. |
+| icon | `string` | A smaller version of the logo used in the extension bar when the user is on a compatible site. Should be 48x48 with no padding and stored in the `/assets/icons/clients/` folder.|
 | color | `string` | Unused for now, may be used for themeing in the future |
 | appProtocol | `string` | The registered protocol for the UWP App. Will be used in the future for auto-detecting installed apps |
 
@@ -53,8 +53,8 @@ import RedditParser from './parsing.js';
 
 export default {
     config: {
-        logo: "https://arlo.site/projects/UWPCompanion/logos/clients/Legere.png",
-        icon: "https://arlo.site/projects/UWPCompanion/icons/clients/Legere.png",
+        logo: "assets/logos/clients/Legere.png",
+        icon: "assets/icons/clients/Legere.png",
         color: "#FF4500"
     },
     name: "Legere",
@@ -86,8 +86,8 @@ Steps for adding a new platform
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
 | name | <code>string</code> | Name of the platform |
-| logo | <code>string</code> | URL of the full sized logo. Will be downscaled and displayed to the user |
-| icon | <code>string</code> | URL of the an icon version of the logo. Used as a fallback in the extension bar when the user is on a site supported by a client | 
+| logo | <code>string</code> | Path to the full sized logo. Will be downscaled and displayed to the user.  Store in the `/assets/logos/platforms/` folder. |
+| icon | <code>string</code> | Path to the icon version of the logo. Used as a fallback in the extension bar when the user is on a site supported by a client. Store in the `/assets/icons/platforms/` folder.  | 
 | baseUrlMatch | <code>function</code> | Used to match a website to a platform. Should be imported from `parsing.js`. Consumes a (url: `string`) and should return a `bool` |
 | shouldCloseOnSwitch | <code>function</code> | (Optional) Used to determine if the extension should close the tab after a client is launched. Consumes (url: `string`, tab: `object`) and returns a `bool` |
 | clients | <code>object</code> | Key-value pairs of the clients supported on this platform. Keep these comma seperated for brevity |
@@ -99,8 +99,8 @@ import YTParser from './parsing.js';
 
 export default {
     name: "YouTube",
-    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/YouTube.png",
-    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/YouTube.png",
+    logo: "assets/logos/platforms/YouTube.png",
+    icon: "assets/icons/platforms/YouTube.png",
     baseUrlMatch: YTParser.isYoutube,
     clients: {
         myTube

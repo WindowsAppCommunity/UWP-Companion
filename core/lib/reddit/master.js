@@ -5,8 +5,8 @@ import Reddplanet from './reddplanet.js';
 
 export default {
     name: "Reddit",
-    logo: "https://arlo.site/projects/UWPCompanion/logos/platforms/Reddit.png",
-    icon: "https://arlo.site/projects/UWPCompanion/icons/platforms/Reddit.png",
+    logo: "assets/logos/platforms/Reddit.png",
+    icon: "assets/icons/platforms/Reddit.png",
     baseUrlMatch: RedditParser.isReddit,
     clients: {
         Legere,
