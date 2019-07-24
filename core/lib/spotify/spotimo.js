@@ -13,8 +13,6 @@ function getProtocolFromUrl(url) {
 
 export default {
     config: {
-        logo: "assets/logos/clients/Spotimo.png",
-        icon: "assets/icons/clients/Spotimo.png",
         color: "#1ED760",
         appProtocol: "spotimo"
     },

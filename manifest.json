@@ -14,11 +14,11 @@
         "clipboardWrite"
     ],
     "icons": {
-        "48": "assets/logos/BrowserAction.png"
+        "48": "/assets/logos/BrowserAction.png"
     },
     "browser_action": {
         "default_icon": {
-            "48": "assets/logos/BrowserAction.png"
+            "48": "/assets/logos/BrowserAction.png"
         },
         "default_popup": "user-interface/index.html"
     },

@@ -11,8 +11,6 @@ export default {
     name: "Quarrel",
     parseUrl: getProtocolFromUrl,
     config: {
-        logo: "assets/logos/clients/Quarrel.png",
-        icon: "assets/icons/clients/Quarrel.png",
         color: "#7289DA",
         appProtocol: "quarrel"
     }

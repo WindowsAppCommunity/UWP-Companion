@@ -6,6 +6,7 @@ export default {
     parseUrl: getProtocolFromUrl,
     postLaunch: pauseStream,
     config: {
+        usePlatformLogo: true,
         color: "#1ABAF3",
         appProtocol: "mixergo"
     }

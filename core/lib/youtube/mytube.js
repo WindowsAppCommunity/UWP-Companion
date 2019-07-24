@@ -55,8 +55,6 @@ export default {
     parseUrl: getProtocolFromUrl,
     postLaunch: postLaunch,
     config: {
-        logo: "assets/logos/clients/myTube.png",
-        icon: "assets/icons/clients/myTube.png",
         color: "#303030",
         appProtocol: "rykentube"
     }

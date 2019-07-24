@@ -4,8 +4,6 @@ import RedditParser from './parsing.js';
 let blacklistedUrlKeywords = ["api", ".js"];
 export default {
     config: {
-        logo: "assets/logos/clients/Reddplanet.png",
-        icon: "assets/icons/clients/Reddplanet.png",
         color: "#FF4500",
         appProtocol: "reddplanet"
     },

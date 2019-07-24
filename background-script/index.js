@@ -7,7 +7,10 @@ if (!(chrome && chrome.tabs) && (browser && browser.tabs)) {
 }
 
 getSettings();
-setupBrowserActionIcon();
+chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+    if (!tabs || !tabs[0]) return;
+    setupBrowserActionIcon(tabs[0].url, tabs[0].id);
+});
 
 function launch(shouldBypassSettings, protocolUrl) {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
@@ -40,13 +43,11 @@ function setupBrowserActionIcon(url, tabId) {
         }
     } else {
         // Not a supported platform, use default icon
-        iconPath = "assets/icons/UWPCompanion.png";
+        iconPath = "../assets/icons/UWPCompanion.png";
     }
 
-    console.log("Setting icon: ../" +  iconPath);
-
     chrome.browserAction.setIcon({
-        path: "../" + iconPath,
+        path: iconPath,
         tabId: tabId
     });
 }

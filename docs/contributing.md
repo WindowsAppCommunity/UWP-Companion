@@ -15,15 +15,35 @@ The codebase for the UWP Companion is ***extremely*** modular, and adding suppor
  - App logo and a smaller icon version (optional for clients, falls back to platform icons)
 
 
+## Notes on logos & icons
+
+ - These are stored in the `/assets/` folder, with self-descriptive subfolders for sorting them out.   
+ - Should be stored locally for maximum performance.  
+ - Paths are generated automatically, but can be overridden by declaring the `icon` and `logo` properties (not recommended, see below).
+
+>
+- Logos:
+  - Logo for the app, shown to the user in the [PlatformView](/user-interface/src/components/PlatformView.tsx) in the browser action popup. 
+  - Should have as little padding possible
+  - `.png` files only
+  - Store in `/assets/logos/platforms/` or `/assets/logos/clients/`, with the filename matching the `name` of the corresponding client or platform.
+>
+- Icons:
+  - A smaller version of the logo used in the extension bar when the user is on a compatible site. 
+  - Should be 48x48 with no padding
+  - `.png` files only
+  - Store in `/assets/icons/platforms/` or `/assets/icons/clients/`, with the filename matching the `name` of the corresponding client or platform.
+
 # Adding a new client
 
 If the platform is already set up, you can add a new client in less than [20 lines of code](https://github.com/Arlodotexe/UWP-Companion/blob/master/core/lib/discord/quarrel.js).
 
 
 Steps for creating a new client:
-1. Find the folder for the platform you are targeting in `/src/lib/`. If your platform doesn't exist, you'll have to [add a new platform](#Adding-a-new-platform)
+1. Find the folder for the platform you are targeting in `/core/lib/`. If your platform doesn't exist, you'll have to [add a new platform](#Adding-a-new-platform)
 2. Create a new file, and name it after your client (all lowercase). The file extension is `.js`. For example, if you're adding a client called `Foo`, create `foo.js`
-3. Populate the newly created file using the documentation below
+3. Populate the newly created file using the documentation below 
+   - Make sure to add icons/logos using the guidelines above
 4. In `master.js` within the same folder, `import` the client as the same exact `name` you created when populating your client. 
 5. Find the `export default` statement in `master.js` Add your imported client to the `clients` key.
 
@@ -34,18 +54,22 @@ Steps for creating a new client:
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
 | name | `string` | Name of the client |
-| parseUrl | `function` | Used to transform an HTTP URL to a protocol URI for your app. Runs every time the current tab is updated or reloaded, and only on sites that pass `baseUrlMatch` for the platform . Consumes a (url: `string`) and should return (protocol: `string | undefined`) |
+| parseUrl | `function` | Used to transform an HTTP URL to a protocol URI for your app. Runs every time the current tab is updated or reloaded, and only on sites that pass `baseUrlMatch` for the platform. Consumes a (url: `string`) and should return (protocol: `string | undefined`) |
 | postLaunch | `function` | Runs after a client is launched. Used to perform actions on a page such as pausing a video |
 | config | `object` | Config object. See below |
 
+
 ### Config object
+
 
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
-| logo | `string` | Logo for the app. Should have as little padding possible, be at most 225px tall and exactly 225px wide and stored in the `/assets/logos/clients/` folder. |
-| icon | `string` | A smaller version of the logo used in the extension bar when the user is on a compatible site. Should be 48x48 with no padding and stored in the `/assets/icons/clients/` folder.|
+| logo | `string` | _(optional)_ Set this to override automatic logo config (Not recommended). |
+| icon | `string` | _(optional)_ Set this to override automatic icon config (Not recommended). |
 | color | `string` | Unused for now, may be used for themeing in the future |
 | appProtocol | `string` | The registered protocol for the UWP App. Will be used in the future for auto-detecting installed apps |
+| usePlatformLogo | `boolean` | _(optional)_ Set `true` to use the platform logo/icon instead of custom client assets |
+
 
 That's it! The end result for your new `.js` file will look something like this:
 ```javascript
@@ -53,8 +77,6 @@ import RedditParser from './parsing.js';
 
 export default {
     config: {
-        logo: "assets/logos/clients/Legere.png",
-        icon: "assets/icons/clients/Legere.png",
         color: "#FF4500"
     },
     name: "Legere",
@@ -62,7 +84,6 @@ export default {
         if (RedditParser.isSubreddit(url) || RedditParser.isUser(url) || RedditParser.isPost(url)) {
             return "legere://" + url
         }
-        return;
     }
 }
 ```
@@ -86,8 +107,8 @@ Steps for adding a new platform
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
 | name | <code>string</code> | Name of the platform |
-| logo | <code>string</code> | Path to the full sized logo. Will be downscaled and displayed to the user.  Store in the `/assets/logos/platforms/` folder. |
-| icon | <code>string</code> | Path to the icon version of the logo. Used as a fallback in the extension bar when the user is on a site supported by a client. Store in the `/assets/icons/platforms/` folder.  | 
+| logo | <code>string</code> | _(optional)_ Set this to override automatic logo config (Not recommended).  |
+| icon | <code>string</code> | _(optional)_ Set this to override automatic icon config (Not recommended).   | 
 | baseUrlMatch | <code>function</code> | Used to match a website to a platform. Should be imported from `parsing.js`. Consumes a (url: `string`) and should return a `bool` |
 | shouldCloseOnSwitch | <code>function</code> | (Optional) Used to determine if the extension should close the tab after a client is launched. Consumes (url: `string`, tab: `object`) and returns a `bool` |
 | clients | <code>object</code> | Key-value pairs of the clients supported on this platform. Keep these comma seperated for brevity |
@@ -99,8 +120,6 @@ import YTParser from './parsing.js';
 
 export default {
     name: "YouTube",
-    logo: "assets/logos/platforms/YouTube.png",
-    icon: "assets/icons/platforms/YouTube.png",
     baseUrlMatch: YTParser.isYoutube,
     clients: {
         myTube

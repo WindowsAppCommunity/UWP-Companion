@@ -2,8 +2,6 @@ import RedditParser from './parsing.js';
 
 export default {
     config: {
-        logo: "assets/logos/clients/Legere.png",
-        icon: "assets/icons/clients/Legere.png",
         color: "#FF4500",
         appProtocol: "legere"
     },
