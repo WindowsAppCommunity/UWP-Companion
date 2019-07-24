@@ -42,8 +42,10 @@ function setupBrowserActionIcon(url, tabId) {
         iconPath = "assets/icons/UWPCompanion.png";
     }
 
+    console.log("Setting icon: ../" +  iconPath);
+
     chrome.browserAction.setIcon({
-        path: ".../" + iconPath,
+        path: "../" + iconPath,
         tabId: tabId
     });
 }
