@@ -141,7 +141,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
           width={175}
           height={(this.props.isSettingsView == true ? 225 : 175)}
           imageFit={ImageFit.centerContain}
-          src={this.state.Client.config.logo != undefined ? this.state.Client.config.logo : this.props.Platform.logo} />
+          src={this.state.Client.config.logo != undefined ? "../" +  this.state.Client.config.logo : "../" + this.props.Platform.logo} />
 
         <PrimaryButton
           styles={{
