@@ -114,7 +114,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
 
   LaunchClient = () => {
     chrome.runtime.sendMessage({
-      launch: this.props.DefaultClient
+      launch: true
     });
   };
 
