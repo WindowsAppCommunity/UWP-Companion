@@ -10,6 +10,5 @@ export default {
         if (RedditParser.isSubreddit(url) || RedditParser.isUser(url) || RedditParser.isPost(url) || RedditParser.isComment(url) || RedditParser.isMultireddit(url)) {
             return "legere://" + url.replace(/https?:\/\//, "");
         }
-        return;
     }
 }

@@ -14,6 +14,5 @@ export default {
         if (RedditParser.isSubreddit(url) || RedditParser.isPost(url)) {
             return ("reddplanet://" + url.replace(/https?:\/\//, ""));
         }
-        
     }
 }

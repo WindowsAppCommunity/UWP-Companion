@@ -2,21 +2,14 @@ import { settings } from '../../helpers/settings.js';
 import YTParser from './parsing.js';
 import { pauseVideo } from './helpers.js';
 
-function urlToProtocolRaw(url) {
+function getProtocolFromUrl(url, tabId) {
     if (YTParser.hasVideo(url) !== null) { // Is a video
-        console.info('Video detected. Will use protocol: \n ');
         return `youtu.beast:PlayVideo?ID=${YTParser.hasVideo(url)}`;
     }
 
     if (YTParser.isHomepage(url)) {
         return "youtu.beast:"
     }
-}
-
-function getProtocolFromUrl(url, tabId) {
-    let protocol = urlToProtocolRaw(url);
-    if (protocol) console.log(protocol);
-    return protocol;
 }
 
 function postLaunch(tabId) {
