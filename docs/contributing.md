@@ -92,7 +92,7 @@ export default {
 # Adding a new platform
 
 Steps for adding a new platform
-1. Create a new folder for the platform in `/src/lib/` with the name of your app (all lowercase)
+1. Create a new folder for the platform in `/core/lib/` with the name of your app (all lowercase)
 2. Create `master.js` and `parsing.js` in the new folder. Populate these as needed using the documentation below
 3. In `/core/libs.js`, import the platform just like the rest
 4. Add the new platform as a key under the `platforms` object, and the imported platform as the value. Make sure the key matches the `name` property of the platform _**exactly**_.
