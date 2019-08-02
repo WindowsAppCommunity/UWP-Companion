@@ -49,8 +49,9 @@ export function getPlatformName(uri, bypass) {
 
 export function getPrefferedClient(platformName) {
     let client;
+
     Object.entries(platforms[platformName].clients).forEach(([clientName, clientData]) => {
-        if (clientName == settings.platforms[platformName].prefferedApp) {
+        if (clientData.name == settings.platforms[platformName].prefferedApp) {
             client = clientData;
         }
     });
@@ -64,6 +65,7 @@ export function getProtocolUri(uri, tabId, bypass) {
 
     // perform URL parsing for that platform's preffered client
     let client = getPrefferedClient(platformName);
+
     let protocol = client.parseUrl(uri, tabId);
 
     return protocol;

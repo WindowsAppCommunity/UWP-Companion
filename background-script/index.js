@@ -41,13 +41,10 @@ function setupBrowserActionIcon(url, tabId) {
             let platform = libs.platforms[platformName];
             if (platform.icon) iconPath = platform.icon;
         }
-    } else {
-        // Not a supported platform, use default icon
-        iconPath = "../assets/icons/UWPCompanion.png";
     }
 
     chrome.browserAction.setIcon({
-        path: iconPath,
+        path: iconPath || "../assets/icons/UWPCompanion.png",
         tabId: tabId
     });
 }

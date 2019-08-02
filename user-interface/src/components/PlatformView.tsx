@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, CompoundButton, Button, PrimaryButton } from 'office-ui-fabric-react';
+import { Stack, CompoundButton, Button, PrimaryButton, registerIconAlias } from 'office-ui-fabric-react';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { ResponsiveMode } from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
@@ -23,12 +23,24 @@ interface IPlatformState {
 
 interface IPlatformView {
   Platform: IPlatform;
-  DefaultClient: IClient;
+  DefaultClient: string;
   OnClientChanged?: Function;
   OnLoaded?: Function;
   isSettingsView?: boolean;
 }
 
+
+function GetClientFromPlatform(clientName: string, platform: IPlatform): IClient | undefined {
+  let returnClient: IClient | undefined;
+
+  for (let client of Object.values(platform.clients)) {
+    if (client.name == clientName) {
+      returnClient = client;
+    }
+  }
+
+  return returnClient;
+}
 
 function GetCurrentAppConfig(platform: string): IClientConfig {
   let prefferedApp: string = (settings as any)[platform].prefferedApp;
@@ -39,9 +51,9 @@ function GetCurrentPlatform(platformName: string): IPlatform {
   return (libs as any).platforms[platformName];
 }
 
-function GetDefaultClientForPlatform(platformName: string): IClient {
+function GetDefaultClientForPlatform(platformName: string): IClient | undefined {
   let prefferedClient: string = (settings as any)[platformName].prefferedApp;
-  return (libs as any).platforms[platformName].clients[prefferedClient];
+  return GetClientFromPlatform(prefferedClient, (libs as any).platforms[platformName]);
 }
 
 function PopulateClientsDropdown(platform: string, clear?: boolean): void {
@@ -49,10 +61,10 @@ function PopulateClientsDropdown(platform: string, clear?: boolean): void {
     while (ClientsDropdown.length > 0) ClientsDropdown.shift();
   }
 
-  for (let i of Object.keys((libs as unknown as ILib).platforms[platform].clients)) {
+  for (let i of Object.values((libs as unknown as ILib).platforms[platform].clients)) {
     ClientsDropdown.push({
-      text: i,
-      key: i
+      text: i.name,
+      key: i.name
     });
   }
 }
@@ -66,8 +78,15 @@ function RelaySettingsState() {
 export class PlatformView extends React.Component<IPlatformView, IPlatformState> {
   constructor(props: IPlatformView, state: IPlatformState) {
     super(props);
+
+    
+    let client: IClient | undefined = GetClientFromPlatform(this.props.DefaultClient, this.props.Platform);
+
+    console.log("client: ", client);
+    if(!client) return;
+
     this.state = {
-      Client: this.props.DefaultClient
+      Client: client
     };
 
     this.OnClientSelected = this.OnClientSelected.bind(this);
@@ -83,7 +102,9 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
   OnClientSelected = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption | undefined, index?: number | undefined) => {
     if (option == undefined) return;
 
-    let newClient = this.props.Platform.clients[option.key];
+    let newClient: IClient | undefined = GetClientFromPlatform(option.text, this.props.Platform);
+    if(!newClient) return;
+
     this.setState({
       Client: newClient
     });

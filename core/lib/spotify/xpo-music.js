@@ -3,6 +3,6 @@ export default {
         color: "#84bd00",
         appProtocol: "xpotify"
     },
-    name: "Xpotify",
+    name: "Xpo Music",
     parseUrl: url => "xpotify:" + url
 }

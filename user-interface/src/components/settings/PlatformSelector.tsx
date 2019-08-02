@@ -109,7 +109,7 @@ export class PlatformSelector extends React.Component<IPlatformSelectorProps, IP
                             type={PanelType.smallFluid}
                             headerText={this.state.SelectedPlatform.Platform.name}>
 
-                            <PlatformView isSettingsView={true} Platform={this.state.SelectedPlatform.Platform} DefaultClient={this.state.SelectedPlatform.Platform.clients[(settings as ISettings).platforms[this.state.SelectedPlatform.Platform.name].prefferedApp]} />
+                            <PlatformView isSettingsView={true} Platform={this.state.SelectedPlatform.Platform} DefaultClient={(settings as ISettings).platforms[this.state.SelectedPlatform.Platform.name].prefferedApp} />
                         </Panel>;
                     }
                 })()

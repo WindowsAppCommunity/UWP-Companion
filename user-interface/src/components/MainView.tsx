@@ -23,7 +23,7 @@ export class MainView extends React.Component<IMainViewProps, IMainViewState> {
         let platformName: string | undefined = GetPlatformNameFromUrl(this.props.url);
         let PrefferedClient: string | undefined = platformName ? (settings as ISettings).platforms[platformName].prefferedApp : undefined;
         let platform: IPlatform | undefined = platformName ? (libs as unknown as ILib).platforms[platformName] : undefined;
-
+        
         this.state = {
             platform: platform,
             PrefferedClient: PrefferedClient
@@ -44,7 +44,7 @@ export class MainView extends React.Component<IMainViewProps, IMainViewState> {
                 }}>
                 {
                     this.state.platform != undefined && this.state.PrefferedClient != undefined
-                        ? <PlatformView DefaultClient={this.state.platform.clients[this.state.PrefferedClient]} Platform={this.state.platform} />
+                        ? <PlatformView DefaultClient={this.state.PrefferedClient} Platform={this.state.platform} />
                         : <UnsupportedView backgroundColor={this.props.backgroundColor} />
                 }
             </Stack>
