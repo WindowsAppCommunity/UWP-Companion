@@ -112,16 +112,13 @@ function injectLaunchScript(protocolUrl, tabId, trycount = 0) {
             }
         `
     }, results => {
-        if (results) {
-            console.log(result);
-            if (result == undefined || result[0] != "success") {
-                // Don't retry more than 5 times
-                if (trycount >= 5) return;
+        if (results == undefined || results[0] != "success") {
+            // Don't retry more than 5 times
+            if (trycount >= 5) return;
 
-                setTimeout(() => {
-                    injectLaunchScript(protocolUrl, tabId, trycount++);
-                }, 200);
-            }
+            setTimeout(() => {
+                injectLaunchScript(protocolUrl, tabId, trycount++);
+            }, 200);
         }
     });
 }
