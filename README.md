@@ -18,7 +18,7 @@ With cooperation from many third party UWP developers, a touch of [Fabric UI](ht
 
 
 ### Chrome, Opera, Edge & other Chromium browsers
-The extension can be sideloaded, get it from the releases page.
+The extension can be sideloaded, get it from the [releases](https://github.com/UWPCommunity/UWP-Companion/releases/) page.
 
 The UWP Companion was removed from the Chrome Web Store due to [this section](https://developer.chrome.com/webstore/program_policies#spam) of their terms of service classifying the extension as "spam". It is not possible to get it relisted
 
@@ -28,7 +28,7 @@ The extension is awaiting approval from Microsoft. Sideloading is possible, but 
 ### Firefox 
 The UWP Companion is not yet compatible with Firefox, as it has a few more bugs to work out.
 
-In the meantime, you can always sideload the 
+In the meantime, you can always sideload the extension
 
 ## Looking to contribute?
 
