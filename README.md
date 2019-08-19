@@ -14,6 +14,22 @@ With cooperation from many third party UWP developers, a touch of [Fabric UI](ht
 | <font size="+1">[Legere](https://www.microsoft.com/en-us/p/legere-for-reddit/9phjrvcskvjz)</font> | <font size="+0.7">[Reddplanet](https://www.microsoft.com/en-us/p/reddplanet/9nblggh4s44m)</font> | <font size="+1">[myTube](https://www.microsoft.com/en-us/p/mytube/9wzdncrcwf3l)</font> | <font size="+1">[Mixplay](https://www.microsoft.com/en-us/p/mixplay-for-mixer/9pn94d9bdfzm)</font> | <font size="+1">[Quarrel](https://www.microsoft.com/en-us/p/quarrel/9nbrwj777c8r)</a> | <font size="+1">[Spotimo](https://www.microsoft.com/en-us/p/spotimo-beta/9p75w183m6qr)</font> | <font size="+1">[Xpo Music](https://www.microsoft.com/en-us/p/xpotify-a-modern-spotify-experience-for-windows-10/9n1n68mc7fxr)</font> |
 |  |  |  |  |  |  |  |
 
+## Installing
+
+
+### Chrome, Opera, Edge & other Chromium browsers
+The extension can be sideloaded, get it from the releases page.
+
+The UWP Companion was removed from the Chrome Web Store due to [this section](https://developer.chrome.com/webstore/program_policies#spam) of their terms of service classifying the extension as "spam". It is not possible to get it relisted
+
+### Edge
+The extension is awaiting approval from Microsoft. Sideloading is possible, but will need a manifest change and will not stay enabled if sideloaded.
+
+### Firefox 
+The UWP Companion is not yet compatible with Firefox, as it has a few more bugs to work out.
+
+In the meantime, you can always sideload the 
+
 ## Looking to contribute?
 
 The UWP Companion is always looking to support new apps! The codebase is ***extremely*** modular and designed to be as easy to work with as possible, even if you're a brand new developer.
