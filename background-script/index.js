@@ -81,9 +81,9 @@ function handlePostLaunchTasks(tab) {
                     client.postLaunch(tab.id);
                 }
 
-                if (settings.platforms[platformName].closeOnSwitch && (libs.platforms[platformName].shouldCloseOnSwitch ? libs.platforms[platformName].shouldCloseOnSwitch(tab.url, tab.id) : true)) {
+                /* if (settings.platforms[platformName].closeOnSwitch && (libs.platforms[platformName].shouldCloseOnSwitch ? libs.platforms[platformName].shouldCloseOnSwitch(tab.url, tab.id) : true)) {
                     chrome.tabs.remove(tab.id);
-                }
+                } */
             }
         });
 
