@@ -50,7 +50,7 @@ export class App extends React.Component<IAppProps, {}> {
             <Stack styles={{
                 root: {
                     width: '330px',
-                    height: "440px",
+                    height: "400px",
                     margin: '0px',
                     padding: '0px',
                     textAlign: 'center',

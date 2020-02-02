@@ -79,11 +79,11 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
   constructor(props: IPlatformView, state: IPlatformState) {
     super(props);
 
-    
+
     let client: IClient | undefined = GetClientFromPlatform(this.props.DefaultClient, this.props.Platform);
 
     console.log("client: ", client);
-    if(!client) return;
+    if (!client) return;
 
     this.state = {
       Client: client
@@ -103,7 +103,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
     if (option == undefined) return;
 
     let newClient: IClient | undefined = GetClientFromPlatform(option.text, this.props.Platform);
-    if(!newClient) return;
+    if (!newClient) return;
 
     this.setState({
       Client: newClient
@@ -171,23 +171,32 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
             }
           }}
 
-          onClick={this.LaunchClient} iconProps={{ iconName: "OpenInNewWindow" }} style={{
+          onClick={this.LaunchClient} iconProps={{ iconName: "OpenInNewWindow", styles: { root: { fontSize: 18 } } }} style={{
             height: "40px",
             width: "250px",
             margin: "10px",
             display: (this.props.isSettingsView == true ? "none" : "block")
           }}>
-          Launch {this.state.Client.name}
+          Open in {this.state.Client.name}
         </PrimaryButton>
 
         <Toggle
+          style={{ margin: 7 }}
           defaultChecked={(settings as ISettings).platforms[this.props.Platform.name].isEnabled}
-          label={"Auto launch with " + this.state.Client.name}
+          label={"Auto launch with:"}
           inlineLabel={true}
+          styles={{
+            container: {
+              marginBottom: -5
+            },
+            label: {
+              marginBottom: -5
+            }
+          }}
           onChange={this.OnEnabledChanged}
         />
 
-        <Toggle
+        {/* <Toggle
           defaultChecked={(settings as ISettings).platforms[this.props.Platform.name].closeOnSwitch}
           label="Close window on switch"
           styles={{
@@ -200,7 +209,8 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
           }}
           inlineLabel={true}
           onChange={this.OnCloseOnSwitchChanged}
-        />
+        /> */}
+
         <Dropdown placeholder="Choose another app..." defaultSelectedKey={this.state.Client.name} responsiveMode={ResponsiveMode.large} options={ClientsDropdown} styles={dropdownStyles} onChange={this.OnClientSelected} />
       </Stack >
     );
