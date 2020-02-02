@@ -16,10 +16,12 @@ function launch(shouldBypassSettings, protocolUrl) {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         if (!tabs || !tabs[0]) return;
         if (!protocolUrl) {
+            console.warn(`protocolUrl is missing, getting from current tab`)
             protocolUrl = getProtocolUri(tabs[0].url, tabs[0].id, shouldBypassSettings);
         }
 
         if (protocolUrl) {
+            console.log(`Injecting launch scripts for protocol url "${protocolUrl}"`);
             injectLaunchScript(protocolUrl, tabs[0].id);
             handlePostLaunchTasks(tabs[0]);
         }
@@ -97,12 +99,19 @@ function injectLaunchScript(protocolUrl, tabId, trycount = 0) {
     chrome.tabs.executeScript(tabId, {
         code: `
             try {
-                var protoLaunch = document.createElement("a");
-                protoLaunch.href = "${protocolUrl}";
-                protoLaunch.className = "protoLaunch";
-
-                document.body.appendChild(protoLaunch);
-                document.querySelector(".protoLaunch").click();
+                // If the element has already been created
+                if (document.querySelector(".protoLaunch")) {
+                    document.querySelector(".protoLaunch").href = "${protocolUrl}";
+                    document.querySelector(".protoLaunch").click();
+                }
+                else {
+                    var protoLaunch = document.createElement("a");
+                    protoLaunch.href = "${protocolUrl}";
+                    protoLaunch.className = "protoLaunch";
+                    
+                    document.body.appendChild(protoLaunch);
+                    document.querySelector(".protoLaunch").click();
+                }
                 "success";
             } catch(ex) {
                 "notReady";
@@ -120,28 +129,35 @@ function injectLaunchScript(protocolUrl, tabId, trycount = 0) {
     });
 }
 
+// When the user changes the selected (active) tab
 chrome.tabs.onActivated.addListener((activeInfo) => {
+
     // this event listener doesn't give us the URL, so we have to get it ourselves
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         if (!tabs || !tabs[0]) return;
+
+        lastActiveTabUrl = tabs[0].url;
+
         setupBrowserActionIcon(tabs[0].url, tabs[0].id);
     });
 });
 
+let lastActiveTabUrl;
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (!changeInfo.url) return;
+    if (!tab || !tab.active) return;
 
-    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        // Make sure the current tab is the one being updated
-        if (!tabs || !tabs[0] || tabs[0].id != tabId) return;
+    // Only continue if the url changes
+    if (lastActiveTabUrl == tab.url) return;
 
-        let protocolUrl = getProtocolUri(changeInfo.url, tabId, false);
-        if (protocolUrl != undefined) {
-            launch(false, protocolUrl, changeInfo.url);
-        }
-    });
+    lastActiveTabUrl = tab.url;
 
-    if (tabId && changeInfo.url) setupBrowserActionIcon(changeInfo.url, tabId);
+    let protocolUrl = getProtocolUri(tab.url, tabId, false);
+    if (protocolUrl != undefined) {
+        launch(false, protocolUrl, tab.url);
+    }
+
+    if (tabId && tab.url) setupBrowserActionIcon(tab.url, tabId);
 });
 
 chrome.webNavigation.onCommitted.addListener(details => {
