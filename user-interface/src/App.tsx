@@ -25,19 +25,25 @@ export class App extends React.Component<IAppProps, {}> {
         super(props);
         this.ToggleSettings = this.ToggleSettings.bind(this);
     }
+
     private boldStyle = {
         root: {
             fontWeight: FontWeights.semibold,
             backgroundColor: this.props.backgroundColor
         }
     };
+
+    private SettingsIcon = "Settings";
+
     private ToggleSettings(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
         switch (CurrentView) {
             case 0:
                 CurrentView = Views.MainView;
+                this.SettingsIcon = "Settings";
                 break;
             case 1:
                 CurrentView = Views.SettingsView;
+                this.SettingsIcon = "Cancel";
                 break;
             default:
                 console.error("Invalid view: " + CurrentView, "Valid views are: " + JSON.stringify(Views));
@@ -62,7 +68,7 @@ export class App extends React.Component<IAppProps, {}> {
                 }}>
                     <div>
                         <ActionButton iconProps={{
-                            iconName: "Settings",
+                            iconName: this.SettingsIcon,
                             styles: SettingsStyle
                         }}
                         />
