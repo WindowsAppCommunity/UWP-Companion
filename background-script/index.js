@@ -142,8 +142,20 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
     });
 });
 
-let lastActiveTabUrl;
+function CheckUrlForProtocol(tab) {
+    tab.url = tab.url || tab.pendingUrl; // Use the pending URL is the URL is missing
 
+    let protocolUrl = getProtocolUri(tab.url, tab.id, false);
+    if (protocolUrl != undefined) {
+        launch(false, protocolUrl, tab.url);
+    }
+
+    if (tab.id && tab.url) setupBrowserActionIcon(tab.url, tab.id);
+}
+
+chrome.tabs.onCreated.addListener(CheckUrlForProtocol);
+
+let lastActiveTabUrl;
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (!tab || !tab.active) return;
 
@@ -151,13 +163,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (lastActiveTabUrl == tab.url) return;
 
     lastActiveTabUrl = tab.url;
-
-    let protocolUrl = getProtocolUri(tab.url, tabId, false);
-    if (protocolUrl != undefined) {
-        launch(false, protocolUrl, tab.url);
-    }
-
-    if (tabId && tab.url) setupBrowserActionIcon(tab.url, tabId);
+    CheckUrlForProtocol(tab);
 });
 
 chrome.webNavigation.onCommitted.addListener(details => {
