@@ -25,7 +25,7 @@ function hasPlaylist(url) {
 }
 function hasTimestamp(url) {
     if (typeof url == 'string') {
-        let match = url.match(/^.*(?:\btime_continue=\b|\bt=\b)([0-9]+)/);
+        let match = url.match(/^.*(?:\bstart=\b|\btime_continue=\b|\bt=\b)([0-9]+)/);
         return (match !== null ? toHHMMSS(match[1]) : null);
     } else console.error('Incorrect data recieved while checking for timestamp');
 }
