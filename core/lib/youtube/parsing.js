@@ -1,7 +1,7 @@
 function isYoutube(url) {
     if (typeof url == 'string') {
-        let match = url.match(/^http.*(youtube\.[a-z]{0,4})|^.*(youtu\.be)/);
-        return (match && match[1]) ? true : false;
+        let match = url.match(/^https?:\/\/(?:www.)?(youtube\.[a-z]{0,4})|(^.*youtu\.be)/);
+        return match != null;
     } else console.error('Incorrect data recieved while checking domain');
 }
 function isHomepage(url) {
