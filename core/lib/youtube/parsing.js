@@ -31,7 +31,7 @@ function hasTimestamp(url) {
 }
 function hasChannel(url) {
     if (typeof url == 'string') {
-        let match = url.match(/^.*(?:youtube\.[a-z]{0,4})(?:\/channel\/|\/user\/)(.{22,})/);
+        let match = url.match(/^.*(?:youtube\.[a-z]{0,4})(?:\/channel\/|\/user\/)([^\/]{22,})/);
         return (match && match[1]) ? match[1] : null;
     } else console.error('Incorrect data recieved while checking for channel');
 }
