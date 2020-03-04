@@ -79,10 +79,7 @@ export class PlatformView extends React.Component<IPlatformView, IPlatformState>
   constructor(props: IPlatformView, state: IPlatformState) {
     super(props);
 
-
     let client: IClient | undefined = GetClientFromPlatform(this.props.DefaultClient, this.props.Platform);
-
-    console.log("client: ", client);
     if (!client) return;
 
     this.state = {

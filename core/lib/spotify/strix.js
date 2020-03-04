@@ -6,16 +6,16 @@ function getProtocolFromUrl(url) {
     if (SpotifyParser.hasAlbum(url) != null
         || SpotifyParser.hasArtist(url) != null
         || SpotifyParser.hasPlaylist(url) != null) {
-            protocol = "spotimo:" + url;
+            protocol = "strix:" + url;
     }
     return protocol;
 }
 
 export default {
     config: {
-        color: "#1ED760",
-        appProtocol: "spotimo"
+        color: "#8600c9",
+        appProtocol: "strix"
     },
-    name: "Spotimo",
+    name: "Strix Music",
     parseUrl: getProtocolFromUrl
 }
