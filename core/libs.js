@@ -12,7 +12,7 @@ const platforms = {
     Spotify,
     Discord,
     Mixer,
-    MicrosoftStore
+    "Microsoft Store": MicrosoftStore
 };
 
 for (const [platform, platformData] of Object.entries(platforms)) {

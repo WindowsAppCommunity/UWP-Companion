@@ -34,6 +34,11 @@ const defaultSettings = {
             prefferedApp: "Strix Music",
             isEnabled: true,
             closeOnSwitch: false
+        },
+        "Microsoft Store": {
+            prefferedApp: "Windows Store",
+            isEnabled: true,
+            closeOnSwitch: true
         }
     }
 };
