@@ -10,16 +10,15 @@ The codebase for the UWP Companion is ***extremely*** modular, and adding suppor
 
 ## What you'll need
 
- - Very basic experience with Javascript
- - A working launch protocol for the app you're adding
- - App logo and a smaller icon version (optional for clients, falls back to platform icons)
-
+- Very basic experience with Javascript
+- A working launch protocol for the app you're adding
+- App logo and a smaller icon version (optional for clients, falls back to platform icons)
 
 ## Notes on logos & icons
 
- - These are stored in the `/assets/` folder, with self-descriptive subfolders for sorting them out.   
- - Should be stored locally for maximum performance.  
- - Paths are generated automatically, but can be overridden by declaring the `icon` and `logo` properties (not recommended, see below).
+- These are stored in the `/assets/` folder, with self-descriptive subfolders for sorting them out.   
+- Should be stored locally for maximum performance.  
+- Paths are generated automatically, but can be overridden by declaring the `icon` and `logo` properties (not recommended, see below).
 
 >
 - Logos:
@@ -38,16 +37,16 @@ The codebase for the UWP Companion is ***extremely*** modular, and adding suppor
 
 If the platform is already set up, you can add a new client in less than [20 lines of code](https://github.com/Arlodotexe/UWP-Companion/blob/master/core/lib/discord/quarrel.js).
 
-
 Steps for creating a new client:
+
 1. Find the folder for the platform you are targeting in `/core/lib/`. If your platform doesn't exist, you'll have to [add a new platform](#Adding-a-new-platform)
 2. Create a new file, and name it after your client (all lowercase). The file extension is `.js`. For example, if you're adding a client called `Foo`, create `foo.js`
 3. Populate the newly created file using the documentation below 
    - Make sure to add icons/logos using the guidelines above
-4. In `master.js` within the same folder, `import` the client as the same exact `name` you created when populating your client. 
+4. In `master.js` within the same folder, `import` the client as the same exact `name` you created when populating your client.
 5. Find the `export default` statement in `master.js` Add your imported client to the `clients` key.
 
- - If you have other helper methods that are specific to the platform and not the client, place them in the file `helpers.js` in the platform directory.
+- If you have other helper methods that are specific to the platform and not the client, place them in the file `helpers.js` in the platform directory.
 
 ## Setting up your client `.js`
 
@@ -58,9 +57,7 @@ Steps for creating a new client:
 | postLaunch | `function` | Runs after a client is launched. Used to perform actions on a page such as pausing a video |
 | config | `object` | Config object. See below |
 
-
 ### Config object
-
 
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
@@ -70,8 +67,8 @@ Steps for creating a new client:
 | appProtocol | `string` | The registered protocol for the UWP App. Will be used in the future for auto-detecting installed apps |
 | usePlatformLogo | `boolean` | _(optional)_ Set `true` to use the platform logo/icon instead of custom client assets |
 
-
 That's it! The end result for your new `.js` file will look something like this:
+
 ```javascript
 import RedditParser from './parsing.js';
 
@@ -88,32 +85,34 @@ export default {
 }
 ```
 
-
 # Adding a new platform
 
 Steps for adding a new platform
+
 1. Create a new folder for the platform in `/core/lib/` with the name of your app (all lowercase)
 2. Create `master.js` and `parsing.js` in the new folder. Populate these as needed using the documentation below
-3. In `/core/libs.js`, import the platform just like the rest
+3. In `/core/libs.js`, import the platform just like the rest.
 4. Add the new platform as a key under the `platforms` object, and the imported platform as the value. Make sure the key matches the `name` property of the platform _**exactly**_.
-5. In `/core/helpers/settings.js`, add a new entry under `DefaultSettings.platforms`. The key is your `platform.name` again, while the value is an [`IPlatformSetting`] (as defined in `/core/typings.ts`).
+5. In `/core/helpers/settings.js`, add a new entry under `DefaultSettings.platforms`. The key is your `platform.name`, while the value is an `IPlatformSetting` (as defined in `/core/typings.ts`).
 
 ---
-## Setting up `master.js`:
+
+## Setting up `master.js`
 
 `master.js` must export a default object like so:
 
 
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
-| name | <code>string</code> | Name of the platform |
-| logo | <code>string</code> | _(optional)_ Set this to override automatic logo config (Not recommended).  |
-| icon | <code>string</code> | _(optional)_ Set this to override automatic icon config (Not recommended).   | 
-| baseUrlMatch | <code>function</code> | Used to match a website to a platform. Should be imported from `parsing.js`. Consumes a (url: `string`) and should return a `bool` |
-| shouldCloseOnSwitch | <code>function</code> | (Optional) Used to determine if the extension should close the tab after a client is launched. Consumes (url: `string`, tab: `object`) and returns a `bool` |
-| clients | <code>object</code> | Key-value pairs of the clients supported on this platform. Keep these comma seperated for brevity |
+| name | `string` | Name of the platform |
+| logo | `string` | _(optional)_ Set this to override automatic logo config (Not recommended).  |
+| icon | `string` | _(optional)_ Set this to override automatic icon config (Not recommended).   |
+| baseUrlMatch | `function` | Used to match a website to a platform. Should be imported from `parsing.js`. Consumes a (url: `string`) and should return a `bool` |
+| shouldCloseOnSwitch | `function` | (Optional) Used to determine if the extension should close the tab after a client is launched. Consumes (url: `string`, tab: `object`) and returns a `bool` |
+| clients | `object` | Key-value pairs of the clients supported on this platform. Keep these comma seperated for brevity |
 
 When all set up, `master.js` should look something like this:
+
 ```javascript
 import myTube from './mytube.js';
 import YTParser from './parsing.js';
@@ -127,7 +126,7 @@ export default {
 };
 ```
 
-## Setting up `parsing.js`:
+## Setting up `parsing.js`
 
 This file will contains all the URL parsing methods you'll need for detecting and capturing certain parts of an official URL.  
 
