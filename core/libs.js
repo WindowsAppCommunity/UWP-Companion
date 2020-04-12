@@ -4,13 +4,15 @@ import Reddit from './lib/reddit/master.js';
 import Spotify from './lib/spotify/master.js';
 import Discord from './lib/discord/master.js';
 import Mixer from './lib/mixer/master.js';
+import MicrosoftStore from './lib/mircosoftstore/master.js';
 
 const platforms = {
     YouTube,
     Reddit,
     Spotify,
     Discord,
-    Mixer
+    Mixer,
+    "Microsoft Store": MicrosoftStore
 };
 
 for (const [platform, platformData] of Object.entries(platforms)) {

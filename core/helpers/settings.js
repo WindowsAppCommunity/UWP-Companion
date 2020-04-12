@@ -34,6 +34,11 @@ const defaultSettings = {
             prefferedApp: "Strix Music",
             isEnabled: true,
             closeOnSwitch: false
+        },
+        "Microsoft Store": {
+            prefferedApp: "Windows Store",
+            isEnabled: true,
+            closeOnSwitch: true
         }
     }
 };
@@ -45,17 +50,20 @@ export function getSettings(cb) {
     chrome.storage.local.get(["settings"], result => {
         if (result.settings !== undefined) {
             // Check for new platforms that aren't present in stored settings 
-            for (let name of Object.keys(defaultSettings.platforms)) {
-                if (result.settings.platforms[name] === undefined) {
-                    result.settings.platforms[name] == defaultSettings.platforms[name];
+            for (let key of Object.keys(defaultSettings.platforms)) {
+                if (result.settings.platforms[key] === undefined) {
+
+                    result.settings.platforms =
+                        { ...result.settings.platforms, [key]: defaultSettings.platforms[key] }
+
                 }
             }
 
             // Check for client names that have changed but old values are still stored in settings
-            for (let name of Object.keys(result.settings.platforms)) {
-                if (libs.platforms[name].clients[result.settings.platforms[name].prefferedApp] == undefined) {
+            for (let key of Object.keys(result.settings.platforms)) {
+                if (libs.platforms[key].clients[result.settings.platforms[key].prefferedApp] == undefined) {
                     // Restore to default app when the name of the preffered app changes
-                    result.settings.platforms[name].prefferedApp = defaultSettings.platforms[name].prefferedApp;
+                    result.settings.platforms[key].prefferedApp = defaultSettings.platforms[key].prefferedApp;
                 }
             }
 
