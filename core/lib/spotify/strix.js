@@ -5,7 +5,8 @@ function getProtocolFromUrl(url) {
 
     if (SpotifyParser.hasAlbum(url) != null
         || SpotifyParser.hasArtist(url) != null
-        || SpotifyParser.hasPlaylist(url) != null) {
+        || SpotifyParser.hasPlaylist(url) != null
+        || SpotifyParser.hasShow(url) != null) {
             protocol = "strix:" + url;
     }
     return protocol;
